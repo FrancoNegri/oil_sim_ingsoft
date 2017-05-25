@@ -8,18 +8,25 @@ Para instalar las dependencias, se recomienda hacerlo dentro de un virtualenv pa
 
 El virtualenv se puede crear de la siguiente forma (instrucciones para Ubuntu)
 
-. Primero se instalan los paquetes necesarios:
+Primero se instalan los paquetes necesarios:
 
+```
 sudo apt-get install wget unzip git mercurial python-setuptools python-imaging
 sudo easy_install pip
 pip install virtualenv
+```
 
 Una vez en la carpeta del proyecto, se crea un nuevo virtualenv:
+```
 virtualenv .env
+```
 
 Luego, se activa el virtual de la siguiente forma
+```
 source .env/bin/activate
+```
 
 El virtualenv se debera activar para correr el proyecto. No es necesario utilizar el virtualenv, pero se recomienda. Una vez dentro del virtualenv, se instalan las librerias necesarias:
-
+```
 pip install reqs.txt
+```
