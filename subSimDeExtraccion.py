@@ -2,5 +2,5 @@ class SubSimDeExtraccion:
 	def __init__(self,log):
 		return
 
-	def simularExcavacion(self,dia):
+	def simularExtraccion(self,dia):
 		return

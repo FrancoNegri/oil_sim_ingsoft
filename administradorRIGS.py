@@ -12,6 +12,10 @@ class AdministradorRIGS:
 		response = this.asignarRig(rigAUtilizar, parcela)
 		self.rigsUtilizados.append(rigAUtilizar)
 
+	def cantidadRigsDisponibles(self):
+		return len(self.rigsDisponibles)
+
+
 	def hayRigsDisponibles(self):
 		return len(self.rigsDisponibles) != 0
 

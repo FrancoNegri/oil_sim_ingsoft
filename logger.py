@@ -5,4 +5,4 @@ class Logger:
 		self.log = open(file_name, mode='w')
 
 	def logear(self,log_info):
-		self.log.write(log_info)
+		self.log.write(log_info + "\n")

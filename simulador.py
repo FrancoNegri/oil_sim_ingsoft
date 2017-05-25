@@ -1,14 +1,15 @@
-from subSimDeExcavacion import SubSimDeExcavacion
-from subSimDeExtraccion import SubSimDeExtraccion
-from subSimDeConstruccion import SubSimDeConstruccion
-from subSimDeReinyeccion import SubSimDeReinyeccion
+from subSimDeExcavacion import *
+from subSimDeExtraccion import *
+from subSimDeConstruccion import *
+from subSimDeReinyeccion import *
 from logger import Logger
 
 class Simulador:
 	def __init__(self):
+		parcelas = []
 		self.logger = Logger("log.txt")
 		self.dia = 0
-		self.unSubSimDeExcavacion = SubSimDeExcavacion(self.logger)
+		self.unSubSimDeExcavacion = SubSimDeExcavacion(self.logger, politicaDeSeleccionMenorProfundidad(3),politicaCuandoPerforarParcelasTodasAlPrincipio(), parcelas)
 		self.unSubSimDeExtraccion = SubSimDeExtraccion(self.logger)
 		self.unSubSimDeReinyeccion = SubSimDeReinyeccion(self.logger)
 		self.unSubSimDeConstruccion = SubSimDeConstruccion(self.logger)

@@ -2,5 +2,5 @@ class SubSimDeConstruccion:
 	def __init__(self, logger):
 		return
 
-	def simularConstruccion(dia):
+	def simularConstruccion(self,dia):
 		return
