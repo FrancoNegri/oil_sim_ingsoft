@@ -10,8 +10,15 @@
     </head>
     <body>
         <h1>SimOil - Ingenieria de Software 1.5</h1>
-        <p>Hello world!</p>
+        <button id="log">Escribir en el log</button>
         
         <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#log").on('click', function(){
+                    $.get('log');
+                })
+            })
+        </script>
     </body>
 </html>
