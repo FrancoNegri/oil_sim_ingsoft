@@ -30,3 +30,10 @@ El virtualenv se debera activar para correr el proyecto. No es necesario utiliza
 ```
 pip install reqs.txt
 ```
+
+## Correr
+Para correr el servidor, se hace de la siguiente forma:
+```
+python app.py
+```
+Eso mostrara una URL en la consola (casi siempre de la forma 127.0.0.1:5000 o 0.0.0.0:5000) a la cual se puede acceder desde el browser.
