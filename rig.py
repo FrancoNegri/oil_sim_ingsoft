@@ -22,4 +22,4 @@ class Rig:
 	def excavarUnDia():
 		self.costo += self.costoDiario
 		self.parcela.perforar(self.poderDeExcavacion)
-
+		return Evento(self.costoDiario, "Se Excava la parcela...")

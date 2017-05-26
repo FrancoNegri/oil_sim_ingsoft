@@ -29,9 +29,7 @@ class AdministradorRIGS:
 		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer()),self.rigsUtilizados))
 		self.rigsDisponibles = self.rigsDisponibles + rigsFinalizados
 		
-		
 	def progresar(self):
-		for rig in self.rigsUtilizados:
-			rig.excavarUnDia()
+		eventosDeExcavacion = list(map(lambda rig: rig.excavarUnDia(),self.rigsUtilizados))
 		self.borrarRigsFinalizados()
-	
+		return eventosDeExcavacion

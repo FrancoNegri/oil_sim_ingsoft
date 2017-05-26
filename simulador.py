@@ -16,12 +16,17 @@ class Simulador:
 
 	def pasarDeDia(self):
 		self.comenzarDia()
-		self.logger.logear("Dia: " + str(self.dia))
-		self.unSubSimDeExcavacion.simularExcavacion(self.dia)
-		self.unSubSimDeExtraccion.simularExtraccion(self.dia)
-		self.unSubSimDeReinyeccion.simularReinyeccion(self.dia)
-		self.unSubSimDeConstruccion.simularConstruccion(self.dia)
-		self.logger.logear("Fin del dia")
+		eventos = []
+		eventoComienzoDelDia = Evento(0,"Comienzo del dia " + str(self.dia))
+		eventos.append(eventoComienzoDelDia)
+		eventosDeExcavacion = self.unSubSimDeExcavacion.simularExcavacion(self.dia)
+		eventosDeExtraccion = self.unSubSimDeExtraccion.simularExtraccion(self.dia)
+		eventosDeReinyeccion = self.unSubSimDeReinyeccion.simularReinyeccion(self.dia)
+		eventosDeConstruccion = self.unSubSimDeConstruccion.simularConstruccion(self.dia)
+		eventos = eventos + eventosDeExcavacion + eventosDeExtraccion + eventosDeReinyeccion + eventosDeConstruccion
+		eventoFinDelDia = Evento(0,"Fin del dia " + str(self.dia))
+		eventos.append(eventoFinDelDia)
+		self.logger.logearEventos(eventos)
 
 	def comenzarDia(self):
 		self.dia += 1

@@ -8,10 +8,9 @@ class yacimiento:
 		self.proporcionGas = proporcionGas
 		self.proporcionAgua=proporcionAgua
 		self.proporcionPetroleo=proporcionPetroleo
-		
 	def extreaerProducto(volumen):
 		self.volumenRestante-=volumen
-	
-	def volumen():
-		self.volumenRestante
-	
+	def volumenRestante():
+		return self.volumenRestante
+	def volumenInicial():
+		return self.volumenInicial
