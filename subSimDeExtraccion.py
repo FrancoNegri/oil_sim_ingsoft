@@ -10,6 +10,6 @@ class SubSimDeExtraccion:
 		#	Elegimos las parcelas a ser utilizadas en base a la politica
 		parcelasElegidas = politicaDeExtraccion.elegir(parcelasListasParaExtraer)
 		#	abrimos la valvula y procesamos la materia prima	
-		parcelasElegidas.map(lambda parcela: parcela.pozo.abrirValvula(plantaProcesadoras))
-		
-		planteaProcesdora.liberar(tanques)
+		ListaEventosDeAperturaDeValvulas =  list(map(lambda parcela: parcela.pozo.abrirValvula(plantaProcesadoras),parcerlasElegidas))
+		ListaDeEventosDeAlmacenamento = planteaProcesdora.liberar(tanques)
+		return ldas + 

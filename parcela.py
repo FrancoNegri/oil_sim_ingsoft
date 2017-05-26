@@ -13,25 +13,35 @@ class terrenoArcilloso(terreno):
 		
 #Clases de Parcela
 class parcelaAbstracta():
-    def __init__(self)
-        return
+	def __init__(self)
+		return
 
 class parcelaNull(parcelaAbstracta):
-    def __init__(self)
-        return
+	def __init__(self)
+		return
 		
 class parcelaConcreta(parcelaAbstracta):
-	def __init__(self,profundidadAlReservorio,precionInicial,tipoDeTerreno):
-		self.profundidadAlReservorio = profundidadAlReservorio
-		self.precionInicial = precionInicial
+	def __init__(self,yacimiento,presionInicial,tipoDeTerreno):
+		self.profundidadAlReservorio = yacimiento.profundidadAlReservorio
+		self.yacimiento = yacimiento
+		self.presion = presionInicial
 		self.tipoDeTerreno = tipoDeTerreno
-        self.pozo = pozoNull()
-        self.profunididadRestanteAlReservorio = self.profundidadAlReservorio
-	
+		self.pozo = pozoNull()
+
+	def extraerProducto(volumen,cantidadDePozos):
+		self.yacimiento.extraerProducto(volumen)
+		self.presion = self.presion* math.e** BETA
+		volRestanteDelYacimiento = self.yacimiento.volumenRestante()
+		volInicialDelYacimiento = self.yacimiento.volumenInicial()
+		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/sqrtCUBO(cantidadDePozos^2)
+		
 	def perforar(poderDeExcavacion)
-	    self.profunididadRestanteAlReservorio -= poderDeExcavacion*tipoDeTerreno.resistencia()
-	    if profunididadRestanteAlReservorio < 0:
-	        self.pozo = pozoFinalizado()
-	
+		self.profundidadAlReservorio -= poderDeExcavacion*tipoDeTerreno.resistencia()
+		if self.profundidadAlReservorio < 0:
+			self.pozo = pozoFinalizado(self)
+			
 	def listoParaExtraer()
-	    return self.pozo.listoParaExtraer()
+		return self.pozo.listoParaExtraer()
+		
+	def volumen():
+		return self.yacimiento.volumen()

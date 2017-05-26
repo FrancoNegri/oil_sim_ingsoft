@@ -15,7 +15,7 @@ class AdministradorRIGS:
 		self.rigsUtilizados.append(rigAUtilizar)
 	
 	#borra un rig usando un ID que deberia tener para identificarse
-	def removeById(self,rig):   
+	def removeById(self,rig):	
 		 sorted(parcelas, key=lambda parcela: parcela.profundidad())
 		
 	def cantidadRigsDisponibles(self):
@@ -23,6 +23,7 @@ class AdministradorRIGS:
 		
 	def dameRig(self):
 		return politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
+		
 	def borrarRigsFinalizados(self):
 		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer()),self.rigsUtilizados))
 		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer()),self.rigsUtilizados))
@@ -33,3 +34,4 @@ class AdministradorRIGS:
 		for rig in self.rigsUtilizados:
 			rig.excavarUnDia()
 		self.borrarRigsFinalizados()
+	

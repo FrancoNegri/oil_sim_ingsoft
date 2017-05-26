@@ -1,14 +1,15 @@
 import random
 
 #Politicas de eleccion de rig
-class PoliticaDeEleccionDeRigAbstracta():
+class PoliticaDeEleccionAbstracta():
 	def __init__(self)
-		return
-	def elegirRIG(self,listaRigs):
-		return
+		return 
 		
-class PoliticaEleccionRigRandom(PoliticaDeEleccionDeRigAbstracta):
+		
+import random
+class PoliticaEleccionRigRandom(PoliticaAbstracta):
 	def __init__(self):
 		return
 	def elegirRIG(self,listaRigs):
 		return listaRigs[random.randrange(len(listaRigs))]
+		

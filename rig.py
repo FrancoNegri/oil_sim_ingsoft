@@ -1,9 +1,11 @@
 from politicasEleccionDeRig import PoliticaEleccionRigRandom
 class Rig:
-    contador = 0
-    def __new__(cls,poderDeExcavacion,costoDiario,minimoDeDiasAPagar,consumoDeCombustible):
+	contador = 0
+	
+	def __new__(cls,poderDeExcavacion,costoDiario,minimoDeDiasAPagar,consumoDeCombustible):
 		contador++
 		return super(Rig, cls).__new__(cls,contador,poderDeExcavacion,costoDiario,minimoDeDiasAPagar,consumoDeCombustible)
+	
 	#faltan algunas cosas como, que primero tenes que alquilarlo y despues lo podes desalquilar?
 	def __init__(self,id,poderDeExcavacion,costoDiario,minimoDeDiasAPagar,consumoDeCombustible):
 		self.poderDeExcavacion = poderDeExcavacion
@@ -20,3 +22,4 @@ class Rig:
 	def excavarUnDia():
 		self.costo += self.costoDiario
 		self.parcela.perforar(self.poderDeExcavacion)
+
