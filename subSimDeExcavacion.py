@@ -1,13 +1,13 @@
+##SUbsistema de Excavacion
 from administradorRIGS import AdministradorRIGS
-
-class politicaDeSeleccionMenorProfundidad:
+class politicaDeSeleccionMenorProfundidad():
 	def __init__(self, cantidadDePozos):
 		self.cantidadDePozos = cantidadDePozos
 	def elegir(self, parcelas):
 		parcelas_elegidas = sorted(parcelas, key=lambda parcela: parcela.profundidad())
 		return parcelas_elegidas[:self.cantidadDePozos]
 
-class politicaCuandoPerforarParcelasTodasAlPrincipio:
+class politicaCuandoPerforarParcelasTodasAlPrincipio():
 	def __init__(self):
 		return
 	def parcelasAPerforarHoy(self,listaParcelasAPerforar,administradorRIGS, dia):
@@ -24,8 +24,8 @@ class SubSimDeExcavacion:
 		self.politicaCuandoPerforarParcelas = politicaCuandoPerforarParcelas
 	def simularExcavacion(self,dia):
 		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(self.listaParcelasAPerforar, self.administradorRIGS, dia)
-		while parcelasAPerforarHoy:
-			self.administradorRIGS.excavar(self.parcelasAPerforarHoy.pop())
+		for parcela in parcelasAPerforarHoy:
+			self.administradorRIGS.asignarRig(parcela)
 			#TODO: faltaria logear este evento
 		else:
 			self.log.logear("Nada para excavar")

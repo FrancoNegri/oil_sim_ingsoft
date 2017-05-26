@@ -2,34 +2,34 @@ from politicasEleccionDeRig import PoliticaEleccionRigRandom
 
 
 class AdministradorRIGS:
-
-    def __init__(self):
-        self.rigsDisponibles = []
-        self.rigsUtilizados = []
-        # falta asignar politca
-        politicaDeAdministracion = PoliticaEleccionRigRandom()
-
-    def excavar(self, parcela):
-        rigAUtilizar = self.dameRig()
-        response = this.asignarRig(rigAUtilizar, parcela)
-        self.rigsUtilizados.append(rigAUtilizar)
-
-    def cantidadRigsDisponibles(self):
-        return len(self.rigsDisponibles)
-
-    def hayRigsDisponibles(self):
-        return len(self.rigsDisponibles) != 0
-
-    def asignarRig(self, rig, parcela):
-        rig.asignarParcela(parcela)
-
-    def dameRig(self):
-        return politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
-
-    def progresar(self):
-        for rig in self.rigsUtilizados:
-            rig.bajarDia()  # verificar esto, por el tema de la responsabilidad
-
-    #  Este metodo es para agregar un rig al simulador para ser utilizado
-    def agregarRig(rig):
-        self.rigsDisponibles.append(rig)
+	def __init__(self,rigs,Politca):
+		#los rigs tienen que tener id para identificarlos
+		self.rigsDisponibles = rigs
+		self.rigsUtilizados = []
+		politicaDeAdministracion = Politica
+		
+	def asignarRig(self,parcela):
+		rigAUtilizar = self.dameRig()
+		rigAUtilizar.asignarParcela(parcela)
+		self.removeById(rigAUtilizar)
+		self.rigsUtilizados.append(rigAUtilizar)
+	
+	#borra un rig usando un ID que deberia tener para identificarse
+	def removeById(self,rig):   
+		 sorted(parcelas, key=lambda parcela: parcela.profundidad())
+		
+	def cantidadRigsDisponibles(self):
+		return len(self.rigsDisponibles)
+		
+	def dameRig(self):
+		return politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
+	def borrarRigsFinalizados(self):
+		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer()),self.rigsUtilizados))
+		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer()),self.rigsUtilizados))
+		self.rigsDisponibles = self.rigsDisponibles + rigsFinalizados
+		
+		
+	def progresar(self):
+		for rig in self.rigsUtilizados:
+			rig.excavarUnDia()
+		self.borrarRigsFinalizados()
