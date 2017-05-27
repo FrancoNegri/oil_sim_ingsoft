@@ -13,18 +13,17 @@ class politicaCuandoPerforarParcelasTodasAlPrincipio:
 	def parcelasAPerforarHoy(self,listaParcelasAPerforar,administradorRIGS, dia):
 		parcelas = []
 		for i in range(0,administradorRIGS.cantidadRigsDisponibles()):
-			parcelas.append(listaParcelasAPerforar.pop())
+			parcelas.append(listaParcelasAPerforar[i])
+
 		return parcelas
 
 class SubSimDeExcavacion:
-	def __init__(self,log,politicaDeSeleccion,politicaCuandoPerforarParcelas,parcelas):
-		self.log = log
-		self.listaParcelasAPerforar = politicaDeSeleccion.elegir(parcelas)
-		self.administradorRIGS = AdministradorRIGS()
+	def __init__(self,politicaDeSeleccionDeRig,politicaCuandoPerforarParcelas,rigs):
+		self.administradorRIGS = AdministradorRIGS(politicaDeSeleccionDeRig,rigs)
 		self.politicaCuandoPerforarParcelas = politicaCuandoPerforarParcelas
-	def simularExcavacion(self,dia):
-		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(self.listaParcelasAPerforar, self.administradorRIGS, dia)
+
+	def simularExcavacion(self,dia, parcelasParaPerforar):
+		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(parcelasParaPerforar, self.administradorRIGS, dia)
 		list(map(lambda parcela: self.administradorRIGS.asignarRig(parcela),parcelasAPerforarHoy))
 		self.log.logear("Nada mas para excavar")
 		self.administradorRIGS.progresar()
-		
