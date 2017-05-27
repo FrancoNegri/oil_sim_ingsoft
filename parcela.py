@@ -34,9 +34,15 @@ class parcelaConcreta(parcelaAbstracta):
 		volRestanteDelYacimiento = self.yacimiento.volumenRestante()
 		volInicialDelYacimiento = self.yacimiento.volumenInicial()
 		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/sqrtCUBO(cantidadDePozos^2)
-
+	
 	def perforar(poderDeExcavacion)
-		self.profundidadAlReservorio -= poderDeExcavacion*tipoDeTerreno.resistencia()
+		perforarUnaDistanciaDe(self, poderDeExcavacion*tipoDeTerreno.resistencia())
+		finalizarPozoSiProfundidadEsNecesaria(self)
+	
+	def perforarUnaDistanciaDe(self,unaDistancia)
+		self.profundidadAlReservorio -= unaDistancia
+	    
+	def finalizarPozoSiProfundidadEsNecesaria(self)
 		if self.profundidadAlReservorio < 0:
 			self.pozo = pozoFinalizado(self)
 
