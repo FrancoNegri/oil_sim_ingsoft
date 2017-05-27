@@ -1,31 +1,34 @@
+#Simulador de construccion
 class SubSimDeConstruccion():
 	def __init__(self,logger,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques):
-		self.listaTanquesListos = []
-		self.listaTanquesConstruyendose = []
-		self.listaPlantasProcesadorasListas = []
-		self.listaPlantasProcesadorasConstruyendose = []
-		self.constructorDePlantas = constructorDePlantas
-		self.ConstructorDeTanques = constructorDeTanques
-		self.politicaDeConstruccionDeTanques = politicaDeConstruccionDeTanques
-		self.politicaDeConstruccionDePlantas = politicaDeConstruccionDePlantas
+		self.administradorDeTanques = administradorDeEstructuras(politicaDeConstruccionDeTanques,constructorDeTanques)
+		self.administradorDePlantas = administradorDeEstructuras(politicaDeConstruccionDePlantas,constructorDePlantas)
 
 	def simularConstruccion(self,dia):
-		#construyo tanques
-		nuevosTanquesAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeTanques, self.constructorDeTanques)
-		self.listaTanquesConstruyendose = self.listaTanquesConstruyendose + nuevosTanquesAConstruir
-		self.pasarDia(self.listaTanquesConstruyendose)
-		self.listaTanquesListos = self.listaTanquesListos + estructurasFinalizadas(self.listaTanquesConstruyendose)
-		self.listaTanquesConstruyendose = estructurasNoFinalizadas(self.listaTanquesConstruyendose)
-		#construyo plantas
-		nuevasPlantasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDePlantas,self.constructorDePlantas)
-		self.listaPlantasProcesadorasConstruyendose = self.listaPlantasProcesadorasConstruyendose + nuevasPlantasAConstruir
-		self.pasarDia(self.listaPlantasProcesadorasConstruyendose)
-		self.listaPlantasProcesadorasListas = self.listaTanquesListos + estructurasFinalizadas(self.listaPlantasProcesadorasConstruyendose)
-		self.listaPlantasProcesadorasConstruyendose = estructurasNoFinalizadas(self.listaPlantasProcesadorasConstruyendose)
+		self.administradorDeTanques.simularConstruccion(dia)
+		self.administradorDePlantas.simularConstruccion(dia)
+
+#Administrador de tanques o administrador de plantas procesadoras
+class administradorDeEstructuras():
+	def __init__(politicaDeConstruccionDeEstructuras,constructorDeEstrcturas):
+		self.politicaDeConstruccionDeEstructuras = politicaDeConstruccionDeEstructuras
+		self.constructorDeEstrcturas = constructorDeEstrcturas
+		self.listaEstructurasConstruyendose = []
+		self.listaDeEstructurasListas = []
+
+	def simularConstruccion(dia):
+		nuevasEstructurasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeEstructuras, self.constructorDeEstrcturas)
+		self.listaEstructurasConstruyendose = self.listaEstructurasConstruyendose + nuevasEstructurasAConstruir
+		self.pasarDia(self.listaEstructurasConstruyendose)
+		self.listaDeEstructurasListas = self.listaDeEstructurasListas + estructurasFinalizadas(self.listaEstructurasConstruyendose)
+		self.listaEstructurasConstruyendose = estructurasNoFinalizadas(self.listaEstructurasConstruyendose)
 
 	def pasarDia(self,listaEstructuras):
+		eventos = []
 		for estructura in listaEstructuras:
-			estructura.pasarDia()		
+			evento = estructura.pasarDia()
+			eventos.append(evento)
+		return eventos
 
 	def empezarConstruccionDeEstructuras(self,dia,politicaDeConstruccion,constructor):
 		estructurasAConstruir = []
@@ -39,8 +42,6 @@ class SubSimDeConstruccion():
 
 	def estructurasNoFinalizadas(self, listaEstructurasConstruyendose):
 		return list(filter(lambda estructura: not estructura.construccionFinalizada(),listaEstructurasConstruyendose))
-		
-
 
 class EstructuraEnConstrucción():
 	def __init__(self,constructor):
@@ -49,6 +50,7 @@ class EstructuraEnConstrucción():
 		self.estructura = None
 	def pasarDia(self):
 		self.diasConstruido += 1
+		return Evento(0,"Construccion Abanza un dia")
 	def construccionFinalizada(self):
 		return self.diasConstruido == self.constructor.tiempoDeConstruccion()
 	def estructura(self):

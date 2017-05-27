@@ -16,7 +16,7 @@ class Rig:
 		self.parcela = parcelaNull()
 		self.id = id
 		
-	def asignarParcela(parcela)
+	def asignarParcela(parcela):
 		self.parcela = parcela
 		
 	def excavarUnDia():
