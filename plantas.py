@@ -1,6 +1,6 @@
 #tanques y plantas
-class plantaProcesadora:
-	def __init__(self,costo,diasDeConstruccion,capacidadMaxima):
+class PlantaProcesadora:
+	def __init__(self,capacidadMaxima):
 		self.costo=costo
 		self.diasDeConstruccion=diasDeConstruccion
 		self.capacidadMaxima=capacidadMaxima
@@ -15,7 +15,7 @@ class plantaProcesadora:
 		return procesado
 
 class Tanque:
-	def __init__(self,costo,diasDeConstruccion,capacidadMaxima):
+	def __init__(self,capacidadMaxima):
 		self.costo=costo
 		self.diasDeConstruccion=diasDeConstruccion
 		self.capacidadMaxima=capacidadMaxima
