@@ -8,7 +8,7 @@ class PozoAbstracto():
 class PozoNull(PozoAbstracto):
 	def __init__(self):
 		return
-	def listoParaExtraer():
+	def listoParaExtraer(self):
 		return False
 		
 class PozoFinalizado(PozoAbstracto):

@@ -1,5 +1,6 @@
-from politicasEleccionDeRig import PoliticaEleccionRigRandom
+from politicas import PoliticaEleccionRigRandom
 from parcela import *
+from evento import Evento
 class Rig:
 	contador = 0
 	
@@ -17,14 +18,17 @@ class Rig:
 		self.parcela = ParcelaNull()
 		self.id = id
 		
-	def asignarParcela(parcela):
+	def asignarParcela(self,parcela):
 		self.parcela = parcela
 		
-	def excavarUnDia():
+	def excavarUnDia(self):
 		self.costo += self.costoDiario
 		self.parcela.perforar(self.poderDeExcavacion)
 		return Evento(self.costoDiario, "Se Excava la parcela...")
 
-	def dilucionDePetroleo():
+	def finalizado(self):
+		return self.parcela.listoParaExtraer()
+
+	def dilucionDePetroleo(self):
 		#que hace esto?
 		return

@@ -7,6 +7,13 @@ class SubSimDeConstruccion():
 	def simularConstruccion(self,dia):
 		self.administradorDeTanques.simularConstruccion(dia)
 		self.administradorDePlantas.simularConstruccion(dia)
+		return []
+
+	def tanques(self):
+		return self.administradorDeTanques.estructurasParaUtilizar()
+
+	def plantasProcesadoras(self):
+		return self.administradorDePlantas.estructurasParaUtilizar()
 
 #Administrador de tanques o administrador de plantas procesadoras
 class administradorDeEstructuras():
@@ -20,8 +27,9 @@ class administradorDeEstructuras():
 		nuevasEstructurasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeEstructuras, self.constructorDeEstrcturas)
 		self.listaEstructurasConstruyendose = self.listaEstructurasConstruyendose + nuevasEstructurasAConstruir
 		self.pasarDia(self.listaEstructurasConstruyendose)
-		self.listaDeEstructurasListas = self.listaDeEstructurasListas + estructurasFinalizadas(self.listaEstructurasConstruyendose)
-		self.listaEstructurasConstruyendose = estructurasNoFinalizadas(self.listaEstructurasConstruyendose)
+		self.listaDeEstructurasListas = self.listaDeEstructurasListas + self.estructurasFinalizadas(self.listaEstructurasConstruyendose)
+		self.listaEstructurasConstruyendose = self.estructurasNoFinalizadas(self.listaEstructurasConstruyendose)
+		return []
 
 	def pasarDia(self,listaEstructuras):
 		eventos = []
@@ -42,6 +50,9 @@ class administradorDeEstructuras():
 
 	def estructurasNoFinalizadas(self, listaEstructurasConstruyendose):
 		return list(filter(lambda estructura: not estructura.construccionFinalizada(),listaEstructurasConstruyendose))
+
+	def estructurasParaUtilizar(self):
+		return list(map(lambda estructura: estructura.estructura(),self.listaDeEstructurasListas))
 
 class EstructuraEnConstruccion():
 	def __init__(self,constructor):

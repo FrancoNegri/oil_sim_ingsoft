@@ -1,4 +1,4 @@
-from politicasEleccionDeRig import PoliticaEleccionRigRandom
+from politicas import PoliticaEleccionRigRandom
 
 
 class AdministradorRIGS:
@@ -16,8 +16,9 @@ class AdministradorRIGS:
 	
 	#borra un rig usando un ID que deberia tener para identificarse
 	def removeById(self,rig):	
-		 sorted(parcelas, key=lambda parcela: parcela.profundidad())
-		
+		#sorted(parcelas, key=lambda parcela: parcela.profundidad())
+		return
+
 	def cantidadRigsDisponibles(self):
 		return len(self.rigsDisponibles)
 		
@@ -25,8 +26,8 @@ class AdministradorRIGS:
 		return self.politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
 		
 	def borrarRigsFinalizados(self):
-		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer(),self.rigsUtilizados))
-		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer(),self.rigsUtilizados))
+		rigsFinalizados =  list(filter(lambda rig: rig.finalizado(),self.rigsUtilizados))
+		self.rigsUtilizados = list(filter(lambda rig: not rig.finalizado(),self.rigsUtilizados))
 		self.rigsDisponibles = self.rigsDisponibles + rigsFinalizados
 		
 	def progresar(self):

@@ -1,12 +1,14 @@
 from administradorRIGS import AdministradorRIGS
 ##SUbsistema de Excavacion
 class SubSimDeExcavacion:
-	def __init__(self,politicaDeSeleccionDeRig,politicaCuandoPerforarParcelas,rigs):
-		self.administradorRIGS = AdministradorRIGS(politicaDeSeleccionDeRig,rigs)
-		self.politicaCuandoPerforarParcelas = politicaCuandoPerforarParcelas
+	def __init__(self,politicaEleccionRigs,politicaCualYCantidaddePozosParcela,politicaCuandoPerforar,rigs,parcelas):
+		self.administradorRIGS = AdministradorRIGS(rigs,politicaEleccionRigs)
+		self.politicaCuandoPerforarParcelas = politicaCuandoPerforar
+		self.parcelasParaPerforar = politicaCualYCantidaddePozosParcela.elegir(parcelas)
 
-	def simularExcavacion(self,dia, parcelasParaPerforar):
-		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(parcelasParaPerforar, self.administradorRIGS, dia)
+	def simularExcavacion(self,dia):
+		#TODO: falta quitar las parcelas de la lista a perforar
+		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(self.parcelasParaPerforar, self.administradorRIGS, dia)
 		list(map(lambda parcela: self.administradorRIGS.asignarRig(parcela),parcelasAPerforarHoy))
-		self.log.logear("Nada mas para excavar")
 		self.administradorRIGS.progresar()
+		return []

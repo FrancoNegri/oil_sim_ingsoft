@@ -3,9 +3,10 @@ from subSimDeExtraccion import *
 from subSimDeConstruccion import *
 from subSimDeReinyeccion import *
 from logger import Logger
+from evento import *
 
 class Simulador:
-	def __init__(self,rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela,politicaEleccionRigs,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDeTanques, constructorDePlantas,politicaDeFinalizacion):
+	def __init__(self,rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela,politicaEleccionRigs,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDeTanques, constructorDePlantas,politicaDeFinalizacion,politicaDeReinyeccion):
 		# yacimiento = (
 		# parcelas = [Listdo de Parcelas] [ [Arcilloso, 20, 20], [Roca, 10, 15], [Roca, 1, 10] ]
 		# politicaCuandoPerforar: Todas al Principio
@@ -21,24 +22,25 @@ class Simulador:
 		self.parcelas = parcelas
 		self.logger = Logger("log.txt")
 		self.dia = 0
-		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaEleccionRigs,politicaCualYCantidaddePozosParcela,rigs)
+		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaEleccionRigs,politicaCualYCantidaddePozosParcela,politicaCuandoPerforar,rigs,parcelas)
 		self.unSubSimDeExtraccion = SubSimDeExtraccion(parcelas,politicaDeEleccionDePozos)
 		self.unSubSimDeReinyeccion = SubSimDeReinyeccion()
 		self.unSubSimDeConstruccion = SubSimDeConstruccion(politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques)
 		self.politicaDeFinalizacion = politicaDeFinalizacion
+		self.politicaDeReinyeccion = politicaDeReinyeccion
 		parcelas = []
 
-	def start():
-	  while self.politicaDeFinalizacion.finalizo(self.dia):
+	def start(self):
+	  while not self.politicaDeFinalizacion.finalizo(self.dia):
 		  self.pasarDeDia()
 
-	def filtrarConPozo(parcela):
+	def filtrarConPozo(self,parcela):
 		return parcela.listoParaExtraer()
 
-	def filtrarSinPozo(parcela):
+	def filtrarSinPozo(self,parcela):
 		return not parcela.listoParaExtraer()
 
-	def filtrarParcelas(funcionParaFiltrar):
+	def filtrarParcelas(self,funcionParaFiltrar):
 		return list(filter(funcionParaFiltrar,self.parcelas))
 
 	def pasarDeDia(self):
@@ -54,16 +56,18 @@ class Simulador:
 		parcelasConPozo = self.filtrarParcelas(self.filtrarConPozo)
 
 		tanques =  self.unSubSimDeConstruccion.tanques()
-		plantasProcedoras =  self.unSubSimDeConstruccion.plantasProcesadoras()
+		plantasProcesadoras =  self.unSubSimDeConstruccion.plantasProcesadoras()
 
-		if politicaDeReinyeccion.elijoReinyectar(parcelasConPozo,dia):
+		if self.politicaDeReinyeccion.elijoReinyectar(parcelasConPozo,self.dia):
 			eventosDeReinyeccion = self.unSubSimDeReinyeccion.simularReinyeccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
+			eventos = eventos + eventosDeReinyeccion
 		else:
 			eventosDeExtraccion = self.unSubSimDeExtraccion.simularExtraccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
-
-		eventosDeExcavacion = self.unSubSimDeExcavacion.simularExcavacion(self.dia,parcelasSinPozo)
+			eventos = eventos + eventosDeExtraccion
+		eventosDeExcavacion = self.unSubSimDeExcavacion.simularExcavacion(self.dia)
+		eventos = eventos + eventosDeExcavacion
 		eventosDeConstruccion = self.unSubSimDeConstruccion.simularConstruccion(self.dia)
-		eventos = eventos + eventosDeExcavacion + eventosDeExtraccion + eventosDeReinyeccion + eventosDeConstruccion
+		eventos = eventos + eventosDeConstruccion
 		eventoFinDelDia = Evento(0,"Fin del dia " + str(self.dia))
 		eventos.append(eventoFinDelDia)
 		self.logger.logearEventos(eventos)  

@@ -5,5 +5,6 @@ class Logger:
 		self.log = open(file_name, mode='w')
 
 	def logearEventos(self,eventos):
-		for evento in eventos:
-			self.log.write(evento.mensaje() + "\n")
+		print eventos
+		#for evento in eventos:
+		#	self.log.write(evento.mensaje() + "\n")
