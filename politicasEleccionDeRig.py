@@ -28,6 +28,7 @@ class politicaCuandoPerforarParcelasTodasAlPrincipio:
 		for i in range(0,administradorRIGS.cantidadRigsDisponibles()):
 			parcelas.append(listaParcelasAPerforar[i])
 		return parcelas
+#politica de construccion de estructuras
 
 class politicaDeConstruccionDeEstructurasAlPrincipio():
 	def __init__(self,cantidad):
@@ -36,3 +37,16 @@ class politicaDeConstruccionDeEstructurasAlPrincipio():
 	def elegir(self,dia):
 		if dia == 0:
 			return cantidad
+#Politica de eleccion de parcelas
+class politicaDeEleccionDeParcelasParaExtraccion():
+	def elegir(parcelasListasParaExtraer):
+		return parcelasListasParaExtraer
+
+class politicaDeFinalizacionVencimientoDeContrato():
+	def __init__(self,dias):
+		self.dias = dias
+	def finalizo(dia):
+		if dia == self.dias:
+			return True
+		else:
+			return False

@@ -5,7 +5,7 @@ from subSimDeReinyeccion import *
 from logger import Logger
 
 class Simulador:
-	def __init__(self,rigs,parcelas,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela,politicaEleccionRigs,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas):
+	def __init__(self,rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela,politicaEleccionRigs,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDeTanques, constructorDePlantas,politicaDeFinalizacion):
 		# yacimiento = (
 		# parcelas = [Listdo de Parcelas] [ [Arcilloso, 20, 20], [Roca, 10, 15], [Roca, 1, 10] ]
 		# politicaCuandoPerforar: Todas al Principio
@@ -18,26 +18,18 @@ class Simulador:
 		# self.politicaDeFinalizacion: punto critico
 		# self.constructorDePlantas
 		# self.constructorDeTanques
-
 		self.parcelas = parcelas
 		self.logger = Logger("log.txt")
 		self.dia = 0
-		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaDeEleccionDeRig,politicaCualYcantidadDePozosParcela,rigs)
+		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaEleccionRigs,politicaCualYCantidaddePozosParcela,rigs)
 		self.unSubSimDeExtraccion = SubSimDeExtraccion(parcelas,politicaDeEleccionDePozos)
 		self.unSubSimDeReinyeccion = SubSimDeReinyeccion()
 		self.unSubSimDeConstruccion = SubSimDeConstruccion(politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques)
 		self.politicaDeFinalizacion = politicaDeFinalizacion
 		parcelas = []
-		self.logger = Logger("log.txt")
-		self.dia = 0
-		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaDeSeleccionMenorProfundidad(3),politicaCuandoPerforarParcelasTodasAlPrincipio(), parcelas)
-		self.unSubSimDeExtraccion = SubSimDeExtraccion(self.logger)
-		self.unSubSimDeReinyeccion = SubSimDeReinyeccion(self.logger)
-
-		self.unSubSimDeConstruccion = SubSimDeConstruccion(politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas,constructorDePlantas,constructorDeTanques)
 
 	def start():
-	  while self.politicaDeFinalizacion.finalizo():
+	  while self.politicaDeFinalizacion.finalizo(self.dia):
 		  self.pasarDeDia()
 
 	def filtrarConPozo(parcela):

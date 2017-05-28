@@ -1,6 +1,6 @@
 #Simulador de construccion
 class SubSimDeConstruccion():
-	def __init__(self,logger,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques):
+	def __init__(self,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques):
 		self.administradorDeTanques = administradorDeEstructuras(politicaDeConstruccionDeTanques,constructorDeTanques)
 		self.administradorDePlantas = administradorDeEstructuras(politicaDeConstruccionDePlantas,constructorDePlantas)
 
@@ -10,13 +10,13 @@ class SubSimDeConstruccion():
 
 #Administrador de tanques o administrador de plantas procesadoras
 class administradorDeEstructuras():
-	def __init__(politicaDeConstruccionDeEstructuras,constructorDeEstrcturas):
+	def __init__(self,politicaDeConstruccionDeEstructuras,constructorDeEstrcturas):
 		self.politicaDeConstruccionDeEstructuras = politicaDeConstruccionDeEstructuras
 		self.constructorDeEstrcturas = constructorDeEstrcturas
 		self.listaEstructurasConstruyendose = []
 		self.listaDeEstructurasListas = []
 
-	def simularConstruccion(dia):
+	def simularConstruccion(self,dia):
 		nuevasEstructurasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeEstructuras, self.constructorDeEstrcturas)
 		self.listaEstructurasConstruyendose = self.listaEstructurasConstruyendose + nuevasEstructurasAConstruir
 		self.pasarDia(self.listaEstructurasConstruyendose)

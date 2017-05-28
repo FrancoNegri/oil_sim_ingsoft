@@ -10,6 +10,7 @@ def main():
 	politicaCuandoPerforar = politicaCuandoPerforarParcelasTodasAlPrincipio()
 	politicaCualYCantidaddePozosParcela = politicaDeSeleccionMenorProfundidad(3)
 	politicaEleccionRigs = PoliticaEleccionRigRandom()
+	politicaDeEleccionDePozos = politicaDeEleccionDeParcelasParaExtraccion()
 	politicaDeConsutrccionTanques = politicaDeConstruccionDeEstructurasAlPrincipio(2)
 	politicaDeConsutrccionPlantas = politicaDeConstruccionDeEstructurasAlPrincipio(3)
 	yacimiento = Yacimiento(10,20,10,10)
@@ -17,7 +18,8 @@ def main():
 	rigs = [Rig(1,10, 10,20,10)]
 	constructorDePlantas = ConstructorDePlantasProcesadoras(10,10,200)
 	constructorDeTanques = ConstructorDeTanques(10,20,400)
-	sim = Simulador(rig,parcelas,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicasEleccionDeRig,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas)
+	politicaDeFinalizacion = politicaDeFinalizacionVencimientoDeContrato(100)
+	sim = Simulador(rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicaEleccionRigs,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas, constructorDeTanques, constructorDePlantas, politicaDeFinalizacion)
 
 if __name__ == "__main__":
     main()

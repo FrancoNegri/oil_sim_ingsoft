@@ -1,7 +1,6 @@
 class SubSimDeExtraccion:
-	def __init__(self,log,parcelas,politicaDeExtraccion):
+	def __init__(self,parcelas,politicaDeExtraccion):
 		self.parcelas = parcelas
-		self.log=log
 		self.politicaDeExtraccion=politicaDeExtraccion
 
 	def simularExtraccion(self,parcelasListasParaExtraer,plantasProcesdoras,tanques):

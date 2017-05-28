@@ -2,11 +2,11 @@ from politicasEleccionDeRig import PoliticaEleccionRigRandom
 
 
 class AdministradorRIGS:
-	def __init__(self,rigs,Politca):
+	def __init__(self,rigs,politica):
 		#los rigs tienen que tener id para identificarlos
 		self.rigsDisponibles = rigs
 		self.rigsUtilizados = []
-		politicaDeAdministracion = Politica
+		self.politicaDeAdministracion = politica
 		
 	def asignarRig(self,parcela):
 		rigAUtilizar = self.dameRig()
@@ -22,7 +22,7 @@ class AdministradorRIGS:
 		return len(self.rigsDisponibles)
 		
 	def dameRig(self):
-		return politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
+		return self.politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
 		
 	def borrarRigsFinalizados(self):
 		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer(),self.rigsUtilizados))
