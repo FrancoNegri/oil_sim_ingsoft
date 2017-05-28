@@ -25,8 +25,9 @@ class politicaCuandoPerforarParcelasTodasAlPrincipio:
 		return
 	def parcelasAPerforarHoy(self,listaParcelasAPerforar,administradorRIGS, dia):
 		parcelas = []
-		for i in range(0,administradorRIGS.cantidadRigsDisponibles()):
-			parcelas.append(listaParcelasAPerforar[i])
+		for i in range(0,len(listaParcelasAPerforar)):
+			if i < administradorRIGS.cantidadRigsDisponibles():
+				parcelas.append(listaParcelasAPerforar[i])
 		return parcelas
 #politica de construccion de estructuras
 

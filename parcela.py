@@ -34,7 +34,7 @@ class ParcelaConcreta(ParcelaAbstracta):
 	def extraerProducto(self,volumen,cantidadDePozos):
 		volRestanteDelYacimiento = self.yacimiento.getVolumenRestante()
 		volInicialDelYacimiento = self.yacimiento.getVolumenInicial()
-		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/((cantidadDePozos^2)**(1./3))
+		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/(((cantidadDePozos*1.0)**2)**(1./3))
 		self.presion = self.presion* math.exp(BETA) 
 		self.yacimiento.extraerProducto(volumen)
 
