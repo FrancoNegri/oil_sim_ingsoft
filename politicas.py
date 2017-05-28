@@ -36,8 +36,8 @@ class politicaDeConstruccionDeEstructurasAlPrincipio():
 		self.cantidad = cantidad
 
 	def elegir(self,dia):
-		if dia == 0:
-			return cantidad
+		if dia == 1:
+			return self.cantidad
 		else:
 			return 0
 #Politica de eleccion de parcelas

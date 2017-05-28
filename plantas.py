@@ -1,11 +1,9 @@
 #tanques y plantas
 class PlantaProcesadora:
 	def __init__(self,capacidadMaxima):
-		self.costo=costo
-		self.diasDeConstruccion=diasDeConstruccion
 		self.capacidadMaxima=capacidadMaxima
-		self.capacidadUtiliada=0
-	def procesar(volumen):
+		self.capacidadUtilizada=0
+	def procesar(self,volumen):
 		volumenDisponible = (self.capacidadMaxima-self.capacidadUtilizada)
 		if volumenDisponible>volumen:
 			procesado = volumen
@@ -16,12 +14,10 @@ class PlantaProcesadora:
 
 class Tanque:
 	def __init__(self,capacidadMaxima):
-		self.costo=costo
-		self.diasDeConstruccion=diasDeConstruccion
 		self.capacidadMaxima=capacidadMaxima
-		self.capacidadUtiliada=0
+		self.capacidadUtilizada=0
 		
-	def almacenar(volumen):
+	def almacenar(self,volumen):
 		volumenDisponible = (self.capacidadMaxima-self.capacidadUtilizada)
 		if volumenDisponible>volumen:
 			almacenado = volumen
@@ -31,7 +27,7 @@ class Tanque:
 		# registrar evento
 		return almacenado
 
-	def vender(volumen):
+	def vender(self,volumen):
 		self.capacidadUtilizada -= volumen
 		#registrar evento
 		
