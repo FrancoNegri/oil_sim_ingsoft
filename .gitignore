@@ -1,0 +1,14 @@
+  administradorRIGS.pyc
+  evento.pyc
+  logger.pyc
+  parcela.pyc
+  plantas.pyc
+  politicas.pyc
+  pozo.pyc
+  rig.pyc
+  simulador.pyc
+  subSimDeConstruccion.pyc
+  subSimDeExcavacion.pyc
+  subSimDeExtraccion.pyc
+  subSimDeReinyeccion.pyc
+  yacimiento.pyc
