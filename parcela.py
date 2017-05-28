@@ -23,19 +23,26 @@ class ParcelaNull(ParcelaAbstracta):
 		return
 
 class ParcelaConcreta(ParcelaAbstracta):
+	contador =1;
+
 	def __init__(self,yacimiento,presionInicial,tipoDeTerreno,profundidadAlReservorio):
 		self.profundidadAlReservorio = profundidadAlReservorio
 		self.yacimiento = yacimiento
+		self.id= ParcelaConcreta.contador
+		ParcelaConcreta.contador+=1
 		self.presion = presionInicial
 		self.presionInicial = presionInicial
 		self.tipoDeTerreno = tipoDeTerreno
 		self.pozo = PozoNull()
 
+	def dameId(self):
+		return self.id
+
 	def extraerProducto(self,volumen,cantidadDePozos):
 		volRestanteDelYacimiento = self.yacimiento.getVolumenRestante()
 		volInicialDelYacimiento = self.yacimiento.getVolumenInicial()
 		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/(((cantidadDePozos*1.0)**2)**(1./3))
-		self.presion = self.presion* math.exp(BETA) 
+		self.presion = self.presion* math.exp(BETA)
 		self.yacimiento.extraerProducto(volumen)
 
 	def perforar(self,poderDeExcavacion):
