@@ -44,7 +44,7 @@ class Simulador:
 		return parcela.listoParaExtraer()
 
 	def filtrarSinPozo(parcela):
-		return !parcela.listoParaExtraer()
+		return not parcela.listoParaExtraer()
 
 	def filtrarParcelas(funcionParaFiltrar):
 		return list(filter(funcionParaFiltrar,self.parcelas))
@@ -74,5 +74,6 @@ class Simulador:
 		eventos = eventos + eventosDeExcavacion + eventosDeExtraccion + eventosDeReinyeccion + eventosDeConstruccion
 		eventoFinDelDia = Evento(0,"Fin del dia " + str(self.dia))
 		eventos.append(eventoFinDelDia)
-		self.logger.logearEventos(eventos)  def comenzarDia(self):
+		self.logger.logearEventos(eventos)  
+	def comenzarDia(self):
 		self.dia += 1

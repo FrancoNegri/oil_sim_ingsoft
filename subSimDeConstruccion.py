@@ -34,7 +34,7 @@ class administradorDeEstructuras():
 		estructurasAConstruir = []
 		cantidadDeEstructurasAConstruirHoy = politicaDeConstruccion.elegir(dia)
 		for i in range(0,cantidadDeEstructurasAConstruirHoy):
-			estructurasAConstruir.append(EstructuraEnConstrucción(constructor))
+			estructurasAConstruir.append(EstructuraEnConstruccion(constructor))
 		return estructurasAConstruir
 
 	def estructurasFinalizadas(self, listaEstructurasConstruyendose):
@@ -43,7 +43,7 @@ class administradorDeEstructuras():
 	def estructurasNoFinalizadas(self, listaEstructurasConstruyendose):
 		return list(filter(lambda estructura: not estructura.construccionFinalizada(),listaEstructurasConstruyendose))
 
-class EstructuraEnConstrucción():
+class EstructuraEnConstruccion():
 	def __init__(self,constructor):
 		self.constructor
 		self.diasConstruido = 0

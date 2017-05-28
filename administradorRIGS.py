@@ -25,8 +25,8 @@ class AdministradorRIGS:
 		return politicaDeAdministracion.elegirRIG(self.rigsDisponibles)
 		
 	def borrarRigsFinalizados(self):
-		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer()),self.rigsUtilizados))
-		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer()),self.rigsUtilizados))
+		rigsFinalizados =  list(filter(lambda rig: rig.parcela().listoParaExtraer(),self.rigsUtilizados))
+		self.rigsUtilizados = list(filter(lambda rig: not rig.parcela().listoParaExtraer(),self.rigsUtilizados))
 		self.rigsDisponibles = self.rigsDisponibles + rigsFinalizados
 		
 	def progresar(self):

@@ -1,7 +1,5 @@
-class yacimiento:
-	def __init__(self,parcelas,profunidadAlReservorio,volumenInicial,proporcionGas,proporcionAgua,proporcionPetroleo):
-		self.parcelas=parcelas
-		self.profundidadAlReservorio=profundidadAlReservorio
+class Yacimiento:
+	def __init__(self,volumenInicial,proporcionGas,proporcionAgua,proporcionPetroleo):
 		self.volumen=volumenInicial
 		self.volumenRestante=volumenInicial
 		self.proporcionGas = proporcionGas
@@ -19,5 +17,5 @@ class yacimiento:
 	def reinyectar(volumenAgua,volumenGas):
 		self.volumenReinyectado += volumenAgua + volumenGas
 		self.proporcionAgua = (self.proporcionAgua * ((self.volumenInicial() - self.volumenExtraido) + 100* self.volumenReinyectado()))/(self.volumenInicial() - self.volumenExtraido() + self.volumenReinyectado)
-		self.proporcionGas = (self.proporcionGas * (self.volumenInicial() - self.volumenExtraido) )/(self.volumenInicial() - self.volumenExtraido() + self.volumenReinyectado
-		self.proporcionPetroleo = (self.proporcionPetroleo * ((self.volumenInicial() - self.volumenExtraido) )/(self.volumenInicial() - self.volumenExtraido() + self.volumenReinyectado)
+		self.proporcionGas = (self.proporcionGas * (self.volumenInicial() - self.volumenExtraido) )/(self.volumenInicial() - self.volumenExtraido() + self.volumenReinyectado)
+		self.proporcionPetroleo = (self.proporcionPetroleo * (self.volumenInicial() - self.volumenExtraido))/(self.volumenInicial() - self.volumenExtraido() + self.volumenReinyectado)

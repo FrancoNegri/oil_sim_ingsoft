@@ -6,7 +6,7 @@ class PoliticaDeReinyeccionReinyectoEnPuntoCritico():
 	
 	def elijoReinyectar(parcelas,dia):
 		for parcela in parcelasConPozo:
-			if parcela.presion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica::
+			if parcela.presion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica:
 				return True
 		return False
 
@@ -19,8 +19,6 @@ class SubSimDeReinyeccion:
 		#	Elegimos las parcelas a ser utilizadas en base a la politica
 		# elegir cuando producto se va a reinyectar en cada pozo, salksakdkask
 		parcelasAReinyectar = politicaDeQueParcelasReinyectar.elegir(parcelasConPozo,dia)
-		eventos = list(map(lambda parcela: parcela.reiyectar() ,parcelasAReinyectar))  
-		
-		
+		eventos = list(map(lambda parcela: parcela.reiyectar() ,parcelasAReinyectar))
 		return
 		

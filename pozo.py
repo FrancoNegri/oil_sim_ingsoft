@@ -1,18 +1,18 @@
 #Clases de Pozos
-class pozoAbstracto():
+class PozoAbstracto():
 	def __init__(self):
 		return
 	def listoParaExtraer():
 		return
 
-class pozoNull(PozoAbstracto):
-	def __init__(self)
+class PozoNull(PozoAbstracto):
+	def __init__(self):
 		return
 	def listoParaExtraer():
 		return False
 		
-class pozoFinalizado(PozoAbstracto):
-	def __init__(self, parcela)
+class PozoFinalizado(PozoAbstracto):
+	def __init__(self, parcela):
 		self.parcela = parcela
 		return
 	
@@ -29,7 +29,7 @@ class pozoFinalizado(PozoAbstracto):
 			volumenPotencial = volumenTotalDelYacimiento
 		volumenTotalProcesado = 0
 		for plantaProc in plantasProcesadoras:
-			#en este caso ya procese todo el producto que tenía, listo
+			#en este caso ya procese todo el producto que tenia, listo
 			if volumenProcesado == volumenPotencial:
 				break
 			else:
@@ -37,4 +37,4 @@ class pozoFinalizado(PozoAbstracto):
 				volumenProcesado = plantaProc.procesar(volumenPotencial - volumenProcesado)
 				volumenTotalProcesado += volumenTotalProcesado
 		self.parcela.extraerProducto(volumenProcesado,cantidadDePozosHabilitados)
-		return Evento(0, "Al abrir la valvula del pozo se extrajo: " str(volumenProcesado))
+		return Evento(0, "Al abrir la valvula del pozo se extrajo: " + str(volumenProcesado))

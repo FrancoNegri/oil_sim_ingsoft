@@ -1,33 +1,34 @@
+from pozo import *
 #Tipos de terreo
-class terreno():
+class Terreno():
 	def dameResistencia():
 		return
 
-class terrenoRocoso(terreno):
+class TerrenoRocoso(Terreno):
 	def dameResistencia():
 		return 0.6
 
-class terrenoArcilloso(terreno):
+class TerrenoArcilloso(Terreno):
 	def dameResistencia():
 		return 0.7
 
 #Clases de Parcela
-class parcelaAbstracta():
+class ParcelaAbstracta():
 	def __init__(self):
 		return
 
-class parcelaNull(parcelaAbstracta):
+class ParcelaNull(ParcelaAbstracta):
 	def __init__(self):
 		return
 
-class parcelaConcreta(parcelaAbstracta):
-	def __init__(self,yacimiento,presionInicial,tipoDeTerreno):
-		self.profundidadAlReservorio = yacimiento.profundidadAlReservorio
+class ParcelaConcreta(ParcelaAbstracta):
+	def __init__(self,yacimiento,presionInicial,tipoDeTerreno,profundidadAlReservorio):
+		self.profundidadAlReservorio = profundidadAlReservorio
 		self.yacimiento = yacimiento
 		self.presion = presionInicial
 		self.presionInicial = presionInicial
 		self.tipoDeTerreno = tipoDeTerreno
-		self.pozo = pozoNull()
+		self.pozo = PozoNull()
 
 	def extraerProducto(volumen,cantidadDePozos):
 		self.yacimiento.extraerProducto(volumen)
