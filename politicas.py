@@ -63,6 +63,6 @@ class PoliticaDeReinyeccionReinyectoEnPuntoCritico():
 	
 	def elijoReinyectar(self, parcelasConPozo,dia):
 		for parcela in parcelasConPozo:
-			if parcela.presion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica:
+			if parcela.getPresion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica:
 				return True
 		return False

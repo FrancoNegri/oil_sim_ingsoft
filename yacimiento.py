@@ -1,18 +1,19 @@
 class Yacimiento:
 	def __init__(self,volumenInicial,proporcionGas,proporcionAgua,proporcionPetroleo):
 		self.volumen=volumenInicial
+		self.volumenInicial = volumenInicial
 		self.volumenRestante=volumenInicial
 		self.proporcionGas = proporcionGas
 		self.proporcionAgua=proporcionAgua
 		self.proporcionPetroleo=proporcionPetroleo
 		self.volumenReinyectado = 0
-	def extreaerProducto(volumen):
+	def extraerProducto(self,volumen):
 		self.volumenRestante-=volumen
-	def volumenRestante():
+	def getVolumenRestante(self):
 		return self.volumenRestante
-	def volumenInicial():
+	def getVolumenInicial(self):
 		return self.volumenInicial
-	def volumenExtraido():
+	def getVolumenExtraido(self):
 		return self.volumenInicial - self.volumenRestante
 	def reinyectar(volumenAgua,volumenGas):
 		self.volumenReinyectado += volumenAgua + volumenGas

@@ -1,4 +1,5 @@
 from pozo import *
+import math
 #Tipos de terreo
 class Terreno():
 	def dameResistencia(self):
@@ -31,11 +32,11 @@ class ParcelaConcreta(ParcelaAbstracta):
 		self.pozo = PozoNull()
 
 	def extraerProducto(self,volumen,cantidadDePozos):
+		volRestanteDelYacimiento = self.yacimiento.getVolumenRestante()
+		volInicialDelYacimiento = self.yacimiento.getVolumenInicial()
+		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/((cantidadDePozos^2)**(1./3))
+		self.presion = self.presion* math.exp(BETA) 
 		self.yacimiento.extraerProducto(volumen)
-		self.presion = self.presion* math.e** BETA
-		volRestanteDelYacimiento = self.yacimiento.volumenRestante()
-		volInicialDelYacimiento = self.yacimiento.volumenInicial()
-		BETA = (0.1 * (volRestanteDelYacimiento/volInicialDelYacimiento))/sqrtCUBO(cantidadDePozos^2)
 
 	def perforar(self,poderDeExcavacion):
 		self.perforarUnaDistanciaDe(poderDeExcavacion*self.tipoDeTerreno.dameResistencia())
@@ -51,13 +52,16 @@ class ParcelaConcreta(ParcelaAbstracta):
 	def listoParaExtraer(self):
 		return self.pozo.listoParaExtraer()
 
-	def volumen(self):
-		return self.yacimiento.volumen()
+	def getVolumenRestante(self):
+		return self.yacimiento.getVolumenRestante()
 
 	def reinyectar(self,volumenAgua,volumenGas):
 		#falta hacer el chequeo de reinyeccion sarasa, posiblemente en la politica? ya no tengo idea
-		presionDespuesDeReinyeccion = self.presionInicial *( self.yacimiento.volumenInicial() - self.yacimiento.volumenExtraido() + self.yacimiento.volumenReinyectado())/ self.yacimiento.volumenInicial()
+		presionDespuesDeReinyeccion = self.presionInicial *( self.yacimiento.getVolumenInicial() - self.yacimiento.getVolumenExtraido() + self.yacimiento.getVolumenReinyectado())/ self.yacimiento.getVolumenInicial()
 		self.yacimiento.reinyectar(volumenAgua,volumenGas)
 
 	def profundidad(self):
 		return self.profundidadAlReservorio
+
+	def getPresion(self):
+		return self.presion

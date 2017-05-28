@@ -3,8 +3,8 @@ class Evento():
 		self.costoDelEvento = costoDelEvento
 		self.mensaje = mensaje
 
-	def costoDelEvento():
+	def getCostoDelEvento(self):
 		return self.costoDelEvento
 
-	def mensaje():
+	def getMensaje(self):
 		return self.mensaje

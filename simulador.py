@@ -37,39 +37,29 @@ class Simulador:
 	def filtrarConPozo(self,parcela):
 		return parcela.listoParaExtraer()
 
-	def filtrarSinPozo(self,parcela):
-		return not parcela.listoParaExtraer()
-
 	def filtrarParcelas(self,funcionParaFiltrar):
 		return list(filter(funcionParaFiltrar,self.parcelas))
 
 	def pasarDeDia(self):
 		self.comenzarDia()
 		eventos = []
-		eventoComienzoDelDia = Evento(0,"Comienzo del dia " + str(self.dia))
-		eventos.append(eventoComienzoDelDia)
-
-		#me quedon con las parcelas que quiero perforar
-		parcelasSinPozo = self.filtrarParcelas(self.filtrarSinPozo)
-
-		#me quedon con las parcelas que puedo extraer o reinyectar
-		parcelasConPozo = self.filtrarParcelas(self.filtrarConPozo)
-
+		eventoComienzoDelDia = [Evento(0,"Comienzo del dia "+ str(self.dia))]
+		self.logger.logearEventos(eventoComienzoDelDia)
 		tanques =  self.unSubSimDeConstruccion.tanques()
 		plantasProcesadoras =  self.unSubSimDeConstruccion.plantasProcesadoras()
-
+		#me quedon con las parcelas que puedo extraer o reinyectar
+		parcelasConPozo = self.filtrarParcelas(self.filtrarConPozo)
 		if self.politicaDeReinyeccion.elijoReinyectar(parcelasConPozo,self.dia):
 			eventosDeReinyeccion = self.unSubSimDeReinyeccion.simularReinyeccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
-			eventos = eventos + eventosDeReinyeccion
+			self.logger.logearEventos(eventosDeReinyeccion)
 		else:
 			eventosDeExtraccion = self.unSubSimDeExtraccion.simularExtraccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
-			eventos = eventos + eventosDeExtraccion
+			self.logger.logearEventos(eventosDeExtraccion)
 		eventosDeExcavacion = self.unSubSimDeExcavacion.simularExcavacion(self.dia)
-		eventos = eventos + eventosDeExcavacion
+		self.logger.logearEventos(eventosDeExcavacion)
 		eventosDeConstruccion = self.unSubSimDeConstruccion.simularConstruccion(self.dia)
-		eventos = eventos + eventosDeConstruccion
-		eventoFinDelDia = Evento(0,"Fin del dia " + str(self.dia))
-		eventos.append(eventoFinDelDia)
-		self.logger.logearEventos(eventos)  
+		self.logger.logearEventos(eventosDeConstruccion)
+		eventoFinDelDia = [Evento(0,"Fin del dia " + str(self.dia))]
+		self.logger.logearEventos(eventoFinDelDia)
 	def comenzarDia(self):
 		self.dia += 1
