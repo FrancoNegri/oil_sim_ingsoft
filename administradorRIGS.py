@@ -1,5 +1,5 @@
 from politicas import PoliticaEleccionRigRandom
-
+from evento import Evento
 
 class AdministradorRIGS:
 	def __init__(self,rigs,politica):
@@ -10,12 +10,14 @@ class AdministradorRIGS:
 
 	def asignarRig(self,parcela):
 		rigAUtilizar = self.dameRig()
-		rigAUtilizar.asignarParcela(parcela)
+		eventoAsignarParsela = rigAUtilizar.asignarParcela(parcela)
 		self.borrarRigDisponiblePorId(rigAUtilizar)
 		self.rigsUtilizados.append(rigAUtilizar)
+		evento = Evento(0,"rig " + str(rigAUtilizar.dameId()) + " paso a ser un rig utilizado")
+		return [eventoAsignarParsela, evento]
 
 	#borra un rig usando un ID que deberia tener para identificarse
-	def removeById(self,rig):
+	def borrarRigDisponiblePorId(self,rig):
 		for i, o in enumerate(self.rigsDisponibles):
 			if o.dameId== rig.dameId():
 				del self.rigsDisponibles[i]

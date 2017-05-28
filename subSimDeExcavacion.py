@@ -9,6 +9,7 @@ class SubSimDeExcavacion:
 	def simularExcavacion(self,dia):
 		#TODO: falta quitar las parcelas de la lista a perforar
 		parcelasAPerforarHoy = self.politicaCuandoPerforarParcelas.parcelasAPerforarHoy(self.parcelasParaPerforar, self.administradorRIGS, dia)
-		list(map(lambda parcela: self.administradorRIGS.asignarRig(parcela),parcelasAPerforarHoy))
-		self.administradorRIGS.progresar()
-		return []
+		eventosAsignar = list(map(lambda parcela: self.administradorRIGS.asignarRig(parcela),parcelasAPerforarHoy))
+		eventosFlat = reduce(lambda x,y: x+y,eventosAsignar)
+		eventosProgresar = self.administradorRIGS.progresar()
+		return eventosFlat
