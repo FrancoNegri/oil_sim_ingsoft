@@ -13,7 +13,7 @@ def main():
 	politicaDeEleccionDePozos = politicaDeEleccionDeParcelasParaExtraccion()
 	politicaDeConsutrccionTanques = politicaDeConstruccionDeEstructurasAlPrincipio(2)
 	politicaDeConsutrccionPlantas = politicaDeConstruccionDeEstructurasAlPrincipio(3)
-	yacimiento = Yacimiento(10,20,10,10)
+	yacimiento = Yacimiento(10000,20,30,50)
 	parcelas = [ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10),ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10)]
 	rigs = [Rig(1,10, 10,20,10)]
 	constructorDePlantas = ConstructorDePlantasProcesadoras(10,10,200)
