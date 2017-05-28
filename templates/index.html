@@ -6,17 +6,197 @@
         <title>SimOil - Ingenieria de Software 1.5</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+        .parcela_ejemplo{
+            display: none;
+        }
+        </style>
     </head>
     <body>
-        <h1>SimOil - Ingenieria de Software 1.5</h1>
-        <button id="log">Escribir en el log</button>
+        <div class="container">
+            <h1>SimOil - Ingenieria de Software 1.5</h1>
+
+            <form class="form-horizontal" id="form">
+                <fieldset>
+
+                <!-- Form Name -->
+                <legend>Yacimiento</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Volumen Inicial</label>  
+                  <div class="col-md-4">
+                  <input id="volumen_inicial" name="volumen_inicial" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Proporcion de agua</label>  
+                  <div class="col-md-4">
+                  <input id="pr_agua" name="pr_agua" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Proporcion de gas</label>  
+                  <div class="col-md-4">
+                  <input id="pr_gas" name="pr_gas" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Proporcion de petroleo</label>  
+                  <div class="col-md-4">
+                  <input id="pr_petroleo" name="pr_petroleo" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Cantidad de pozos</label>  
+                  <div class="col-md-4">
+                  <input id="cant_pozos" name="cant_pozos" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+                
+                </fieldset>
+
+                <fieldset>
+
+                <!-- Form Name -->
+                <legend>Politicas</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de Reinyectar</label>  
+                  <div class="col-md-4">
+                  <select name="pol_reinyectar" type="text" placeholder="" class="form-control input-md">
+                    <option value="Siempre">Siempre</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de cuando perforar</label>  
+                  <div class="col-md-4">
+                  <select name="pol_cuando_perforar" type="text" placeholder="" class="form-control input-md">
+                    <option value="Principio">Todos al principio</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de eleccion de RIGS</label>  
+                  <div class="col-md-4">
+                  <select name="pol_cual_perforar" type="text" placeholder="" class="form-control input-md">
+                    <option value="Random">Random</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de construccion de tanques</label>  
+                  <div class="col-md-4">
+                  <select name="pol_tanques" type="text" placeholder="" class="form-control input-md">
+                    <option value="Principio">Todos al Principio</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de construccion de plantas</label>  
+                  <div class="col-md-4">
+                  <select name="pol_plantas" type="text" placeholder="" class="form-control input-md">
+                    <option value="Principio">Todos al principio</option>
+                  </select>
+                  </div>
+                </div>
+
+
+                
+                </fieldset>
+
+                <fieldset>
+                    <legend>Parcelas</legend>
+                    
+                    <div class="parcela_ejemplo parcela">
+                        <h4>Parcela #<span></span></h4>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="">Tipo de Terreno</label>  
+                          <div class="col-md-4">
+                          <select name="tipo_terreno[]" type="text" placeholder="" class="form-control input-md">
+                            <option value="arcilla">Arcilla</option>
+                            <option value="roca">Roca</option>
+                          </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="">Profundidad</label>  
+                          <div class="col-md-4">
+                          <input name="profundidad[]" type="text" placeholder="" class="form-control input-md">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="">Presion</label>  
+                          <div class="col-md-4">
+                          <input name="presion[]" type="text" placeholder="" class="form-control input-md">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="parcelas">
+                    </div>
+                    <p><button class="btn btn-alert add_parcela">Agregar Parcela</button></p>
+                </fieldset>
+
+
+
+                <fieldset>
+
+                <!-- Form Name -->
+                <legend>RIGS</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Cantidad de RIGS Standard</label>  
+                  <div class="col-md-4">
+                  <input name="rigs_standard" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Cantidad de RIGS Premium</label>  
+                  <div class="col-md-4">
+                  <input name="rigs_premium" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Cantidad de RIGS SuperPremium</label>  
+                  <div class="col-md-4">
+                  <input name="rigs_superpremium" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
+                </fieldset>
+
+            <button class="btn btn-block btn-large btn-success" id="simular">Simular</button>
+            </form>
+
+        </div>
         
-        <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+        <script src="//code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $("#log").on('click', function(){
-                    $.get('log');
+                $("form#form").on('submit', function(e){
+                    e.preventDefault();
+                    $.post('log', {data: $('form#form').serializeArray() });
+                })
+                $('.add_parcela').on('click', function(e){
+                    e.preventDefault();
+                    var new_parcela = $('.parcela_ejemplo').clone().removeClass('parcela_ejemplo');
+                    new_parcela.find('h4 span').html(($('.parcelas .parcela').length + 1));
+                    new_parcela.find('input').attr('required', true);
+                    new_parcela.appendTo('.parcelas');
                 })
             })
         </script>
