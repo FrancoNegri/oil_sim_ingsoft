@@ -94,6 +94,21 @@
                   </div>
                 </div>
 
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Politica de finalizacion</label>  
+                  <div class="col-md-4">
+                  <select name="pol_final" type="text" placeholder="" class="form-control input-md">
+                    <option value="PuntoCritico">Punto Critico</option>
+                  </select>
+                  </div>
+                </div>
+
+                </fieldset>
+
+                <fieldset>
+                <legend>Construccion de Tanques</legend>
+
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="">Politica de construccion de tanques</label>  
                   <div class="col-md-4">
@@ -104,6 +119,25 @@
                 </div>
 
                 <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Precio</label>  
+                  <div class="col-md-4">
+                  <input name="tanques_precio" type="text" placeholder="" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Duracion</label>  
+                  <div class="col-md-4">
+                  <input name="tanques_duracion" type="text" placeholder="" class="form-control input-md">
+                  </div>
+                </div>
+
+                </fieldset>
+
+                <fieldset>
+                <legend>Construccion de Plantas</legend>
+
+                <div class="form-group">
                   <label class="col-md-4 control-label" for="">Politica de construccion de plantas</label>  
                   <div class="col-md-4">
                   <select name="pol_plantas" type="text" placeholder="" class="form-control input-md">
@@ -112,7 +146,19 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Precio</label>  
+                  <div class="col-md-4">
+                  <input name="plantas_precio" type="text" placeholder="" class="form-control input-md">
+                  </div>
+                </div>
 
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Duracion</label>  
+                  <div class="col-md-4">
+                  <input name="plantas_duracion" type="text" placeholder="" class="form-control input-md">
+                  </div>
+                </div>
                 
                 </fieldset>
 
@@ -179,6 +225,7 @@
 
                 </fieldset>
 
+            <input type="hidden" name="cant_parcelas" value=0>
             <button class="btn btn-block btn-large btn-success" id="simular">Simular</button>
             </form>
 
@@ -186,17 +233,57 @@
         
         <script src="//code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
         <script type="text/javascript">
+jQuery.fn.serializeJSON=function() {
+  var json = {};
+  jQuery.map(jQuery(this).serializeArray(), function(n, i) {
+    var _ = n.name.indexOf('[');
+    if (_ > -1) {
+      var o = json;
+      _name = n.name.replace(/\]/gi, '').split('[');
+      for (var i=0, len=_name.length; i<len; i++) {
+        if (i == len-1) {
+          if (o[_name[i]]) {
+            if (typeof o[_name[i]] == 'string') {
+              o[_name[i]] = [o[_name[i]]];
+            }
+            o[_name[i]].push(n.value);
+          }
+          else o[_name[i]] = n.value || '';
+        }
+        else o = o[_name[i]] = o[_name[i]] || {};
+      }
+    }
+    else {
+      if (json[n.name] !== undefined) {
+        if (!json[n.name].push) {
+          json[n.name] = [json[n.name]];
+        }
+        json[n.name].push(n.value || '');
+      }
+      else json[n.name] = n.value || '';      
+    }
+  });
+  return json;
+};
             $(document).ready(function(){
                 $("form#form").on('submit', function(e){
                     e.preventDefault();
-                    $.post('log', {data: $('form#form').serializeArray() });
+                    $('form#form .parcela_ejemplo').remove();
+                    $.post('log', {data: $('form#form').serializeJSON() });
                 })
                 $('.add_parcela').on('click', function(e){
                     e.preventDefault();
                     var new_parcela = $('.parcela_ejemplo').clone().removeClass('parcela_ejemplo');
-                    new_parcela.find('h4 span').html(($('.parcelas .parcela').length + 1));
+                    var index = ($('.parcelas .parcela').length + 1);
+                    new_parcela.find('h4 span').html(index);
                     new_parcela.find('input').attr('required', true);
+                    new_parcela.find('input, select').each(function(){
+                        var name = $(this).attr('name');
+                        var new_name = name.replace('[]', '[' + index + ']');
+                        $(this).attr('name', new_name);
+                    });
                     new_parcela.appendTo('.parcelas');
+                    $('input[name="cant_parcelas"]').val(index);
                 })
             })
         </script>

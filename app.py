@@ -8,7 +8,8 @@ def index():
 
 @app.route('/log', methods=['POST'])
 def log():
-	return json.dumps(request.form)
+	data = json.dumps(request.form.to_dict())
+	return data
 
 
 if __name__ == "__main__":
