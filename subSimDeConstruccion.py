@@ -1,3 +1,5 @@
+from evento import Evento
+from plantas import *
 #Simulador de construccion
 class SubSimDeConstruccion():
 	def __init__(self,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques):
@@ -52,19 +54,19 @@ class administradorDeEstructuras():
 		return list(filter(lambda estructura: not estructura.construccionFinalizada(),listaEstructurasConstruyendose))
 
 	def estructurasParaUtilizar(self):
-		return list(map(lambda estructura: estructura.estructura(),self.listaDeEstructurasListas))
+		return list(map(lambda estructura: estructura.getEstructura(),self.listaDeEstructurasListas))
 
 class EstructuraEnConstruccion():
 	def __init__(self,constructor):
-		self.constructor
 		self.diasConstruido = 0
+		self.constructor = constructor
 		self.estructura = None
 	def pasarDia(self):
 		self.diasConstruido += 1
 		return Evento(0,"Construccion Abanza un dia")
 	def construccionFinalizada(self):
-		return self.diasConstruido == self.constructor.tiempoDeConstruccion()
-	def estructura(self):
+		return self.diasConstruido == self.constructor.getTiempoDeConstruccion()
+	def getEstructura(self):
 		if self.construccionFinalizada():
 			if self.estructura is None:
 				self.estructura = self.constructor.construir()
@@ -76,10 +78,10 @@ class ConstructorDePlantasProcesadoras():
 		self.costo = costo
 		self.capacidadMax = capacidadMax
 	def construir(self):
-		return PlantaProcesadora(capacidadMax)
-	def costo(self):
+		return PlantaProcesadora(self.capacidadMax)
+	def getCosto(self):
 		return self.costo
-	def tiempoDeConstruccion(self):
+	def getTiempoDeConstruccion(self):
 		return self.tiempoDeConstruccion
 
 class ConstructorDeTanques():
@@ -88,8 +90,8 @@ class ConstructorDeTanques():
 		self.costo = costo
 		self.capacidadMax = capacidadMax
 	def construir(self):
-		return Tanque(capacidadMax)
-	def costo(self):
+		return Tanque(self.capacidadMax)
+	def getCosto(self):
 		return self.costo
-	def tiempoDeConstruccion(self):
+	def getTiempoDeConstruccion(self):
 		return self.tiempoDeConstruccion
