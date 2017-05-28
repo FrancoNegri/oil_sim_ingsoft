@@ -22,7 +22,7 @@ class PozoFinalizado(PozoAbstracto):
 	def listoParaExtraer(self):
 		return True
 
-	def abrirValvula(self,cantidadDePozosHabilitados,plantasProcesadoras):
+	def abrirValvula(self,cantidadDePozosHabilitados,plantasProcesadoras,tanques):
 		presion = self.parcela.getPresion()
 		#falta decidir si alfa1 y alfa2 se pasan por parametro o de donde salen
 		volumenPotencial = self.alfa1*(presion/cantidadDePozosHabilitados) + self.alfa2*(presion/cantidadDePozosHabilitados)**2
@@ -37,7 +37,7 @@ class PozoFinalizado(PozoAbstracto):
 				break
 			else:
 				#le pido a la planta que procese todo el volumen posible, me devuelve cuanto pudo procesar posta
-				volumenProcesado = plantaProc.procesar(volumenPotencial - volumenTotalProcesado)
+				volumenProcesado = plantaProc.procesar(volumenPotencial - volumenTotalProcesado,tanques)
 				volumenTotalProcesado += volumenProcesado
 		self.parcela.extraerProducto(volumenTotalProcesado,cantidadDePozosHabilitados)
 		return Evento(0, "Al abrir la valvula del pozo se extrajo: " + str(volumenTotalProcesado))
