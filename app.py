@@ -1,17 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
-from logger import Logger
-import time
+import json
 
 @app.route("/")
 def index():
 	return render_template("index.html")
 
-@app.route('/log')
+@app.route('/log', methods=['POST'])
 def log():
-	logger = Logger("log.txt")
-	logger.logear('Escrito a las %s' % time.strftime("%H:%M:%S"))
-	return 'Ok'
+	return json.dumps(request.form)
 
 
 if __name__ == "__main__":
