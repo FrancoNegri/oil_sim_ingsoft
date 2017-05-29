@@ -25,7 +25,7 @@ class PozoFinalizado(PozoAbstracto):
 	def abrirValvula(self,cantidadDePozosHabilitados,plantasProcesadoras,tanques):
 		presion = self.parcela.getPresion()
 		#falta decidir si alfa1 y alfa2 se pasan por parametro o de donde salen
-		volumenPotencial = self.alfa1*(presion/cantidadDePozosHabilitados) + self.alfa2*(presion/cantidadDePozosHabilitados)**2
+		volumenPotencial = (self.alfa1*(presion/cantidadDePozosHabilitados)) + (self.alfa2*(presion/cantidadDePozosHabilitados)**2)
 		volumenTotalDelYacimiento = self.parcela.getVolumenRestante()
 		#si el volumen 
 		if volumenPotencial > volumenTotalDelYacimiento:
@@ -33,12 +33,17 @@ class PozoFinalizado(PozoAbstracto):
 		volumenTotalProcesado = 0
 		for plantaProc in plantasProcesadoras:
 			#en este caso ya procese todo el producto que tenia, listo
-			if volumenTotalProcesado == volumenPotencial:
+			if volumenTotalProcesado >= volumenPotencial:
 				break
 			else:
+				print volumenPotencial
 				#le pido a la planta que procese todo el volumen posible, me devuelve cuanto pudo procesar posta
 				volumenDisponible = plantaProc.volumenDisponible(tanques)
-				self.parcela.extraerProducto(volumenDisponible,cantidadDePozosHabilitados)
-				plantaProc.procesar(volumenDisponible,tanques)
-				volumenTotalProcesado += volumenDisponible
+				if volumenDisponible > volumenPotencial - volumenTotalProcesado:
+					volmenAProcesar =  volumenPotencial - volumenTotalProcesado
+				else:
+					volmenAProcesar = volumenDisponible
+				self.parcela.extraerProducto(volmenAProcesar,cantidadDePozosHabilitados)
+				plantaProc.procesar(volmenAProcesar,tanques)
+				volumenTotalProcesado += volmenAProcesar
 		return Evento(0, "Al abrir la valvula del pozo se extrajo: " + str(volumenTotalProcesado))

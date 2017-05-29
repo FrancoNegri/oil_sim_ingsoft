@@ -11,7 +11,7 @@ def main():
 	politicaCualYCantidaddePozosParcela = politicaDeSeleccionMenorProfundidad(4)
 	politicaEleccionRigs = PoliticaEleccionRigRandom()
 	politicaDeEleccionDePozos = politicaDeEleccionDeParcelasParaExtraccion()
-	politicaDeConsutrccionTanques = politicaDeConstruccionDeEstructurasAlPrincipio(3)
+	politicaDeConsutrccionTanques = politicaDeConstruccionDeEstructurasAlPrincipio(5)
 	politicaDeConsutrccionPlantas = politicaDeConstruccionDeEstructurasAlPrincipio(3)
 	yacimiento = Yacimiento(10000,20,30,50)
 	parcelas = [ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10)]
