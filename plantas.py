@@ -64,7 +64,4 @@ class Tanque:
 
 	def vender(self,volumen):
 		self.capacidadUtilizada -= volumen
-		#registrar evento
 
-	#def estaLleno():
-	#	return self.capacidadMaxima==self.capacidadUtilizada

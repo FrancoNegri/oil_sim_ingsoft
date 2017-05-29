@@ -15,11 +15,7 @@ class Simulador:
 		# politicaEleccionRigs: Random
 		# politicaDeConsutrccionTanques: Todas al Principio parametro: cantidad a construir (int)
 		# politicaDeConstruccionDePlantas : Todas al principio: cantidad a construir (int)
-		# rigs = listado de rigs
-		#FALTA!!
-		# self.politicaDeFinalizacion: punto critico
-		# self.constructorDePlantas
-		# self.constructorDeTanques
+
 		self.parcelas = parcelas
 		self.logger = Logger("log.txt")
 		self.dia = 0

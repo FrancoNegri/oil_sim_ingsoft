@@ -3,7 +3,7 @@ from evento import Evento
 
 class AdministradorRIGS:
 	def __init__(self,rigs,politica):
-		#los rigs tienen que tener id para identificarlos
+
 		self.rigsDisponibles = rigs
 		self.rigsUtilizados = []
 		self.politicaDeAdministracion = politica

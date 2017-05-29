@@ -24,7 +24,7 @@ class PozoFinalizado(PozoAbstracto):
 
 	def abrirValvula(self,cantidadDePozosHabilitados,plantasProcesadoras,tanques):
 		presion = self.parcela.getPresion()
-		#falta decidir si alfa1 y alfa2 se pasan por parametro o de donde salen
+
 		volumenPotencial = (self.alfa1*(presion/cantidadDePozosHabilitados)) + (self.alfa2*(presion/cantidadDePozosHabilitados)**2)
 		volumenTotalDelYacimiento = self.parcela.getVolumenRestante()
 		#si el volumen 

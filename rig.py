@@ -4,7 +4,7 @@ from evento import Evento
 class Rig:
 	contador = 1
 
-	#faltan algunas cosas como, que primero tenes que alquilarlo y despues lo podes desalquilar?
+
 	def __init__(self,poderDeExcavacion,costoDiario,minimoDeDiasAPagar,consumoDeCombustible):
 		self.poderDeExcavacion = poderDeExcavacion
 		self.costoDiario = costoDiario

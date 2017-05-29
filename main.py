@@ -6,7 +6,7 @@ from rig import *
 
 #Mock de un main para testear funcionalidad
 def main():
-	#esto es super mega cabeza, el main/interfaz grafica va a conocer a todo
+
 	politicaCuandoPerforar = politicaCuandoPerforarParcelasTodasAlPrincipio()
 	politicaCualYCantidaddePozosParcela = politicaDeSeleccionMenorProfundidad(4)
 	politicaEleccionRigs = PoliticaEleccionRigRandom()
