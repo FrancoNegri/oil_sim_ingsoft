@@ -36,7 +36,7 @@ def log():
 
 	#Politicas
 	if data['data[pol_final]'] == 'Contrato':
-		politicaDeFinalizacion = politicaDeFinalizacionVencimientoDeContrato(100)
+		politicaDeFinalizacion = politicaDeFinalizacionVencimientoDeContrato(int(data['data[duracion_contrato]']))
 
 	if data['data[pol_reinyectar]'] == 'PuntoCritico':
 		politicaDeReinyeccion = PoliticaDeReinyeccionReinyectoEnPuntoCritico(10,20)
