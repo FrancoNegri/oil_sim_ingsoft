@@ -24,7 +24,7 @@ class Simulador:
 		self.dia = 0
 		self.unSubSimDeExcavacion = SubSimDeExcavacion(politicaEleccionRigs,politicaCualYCantidaddePozosParcela,politicaCuandoPerforar,rigs,parcelas)
 		self.unSubSimDeExtraccion = SubSimDeExtraccion(parcelas,politicaDeEleccionDePozos)
-		self.unSubSimDeReinyeccion = SubSimDeReinyeccion()
+		self.unSubSimDeReinyeccion = SubSimDeReinyeccion(politicaDeReinyeccion)
 		self.unSubSimDeConstruccion = SubSimDeConstruccion(politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques)
 		self.politicaDeFinalizacion = politicaDeFinalizacion
 		self.politicaDeReinyeccion = politicaDeReinyeccion
