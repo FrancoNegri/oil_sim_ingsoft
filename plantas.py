@@ -2,9 +2,15 @@
 class PlantaProcesadora:
 	def __init__(self,capacidadMaxima):
 		self.capacidadMaxima=capacidadMaxima
-		self.capacidadUtilizada=0
+		self.capacidadUtilizadaDuranteElDia=0
 	def procesar(self,volumen,tanques):
-		volumenPotencialProcesado = (self.capacidadMaxima-self.capacidadUtilizada)
+		volumenPotencialDisponible = (self.capacidadMaxima-self.capacidadUtilizadaDuranteElDia)
+		
+		if volumenPotencialDisponible>volumen:
+			volumenPotencialProcesado = volumen
+		else:
+			volumenPotencialProcesado = volumenPotencialDisponible
+		
 		volumenTotalProcesado = 0
 		for tanque in tanques:
 			#en este caso ya procese todo el producto que tenia, listo
@@ -15,12 +21,11 @@ class PlantaProcesadora:
 				volumenProcesado = tanque.almacenar(volumenPotencialProcesado - volumenTotalProcesado)
 				volumenTotalProcesado += volumenProcesado
 
-		if volumenPotencialProcesado>volumen:
-			procesado = volumen
-		else:
-			procesado = volumenPotencialProcesado
-		self.capacidadUtilizada +=procesado
-		return procesado
+		self.capacidadUtilizadaDuranteElDia +=volumenTotalProcesado
+		return volumenTotalProcesado
+
+	def finDelDia(self):
+		self.capacidadUtilizadaDuranteElDia = 0
 
 class Tanque:
 	def __init__(self,capacidadMaxima):

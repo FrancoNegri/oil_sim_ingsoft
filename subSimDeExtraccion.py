@@ -10,4 +10,5 @@ class SubSimDeExtraccion:
 		parcelasElegidas = self.politicaDeExtraccion.elegir(parcelasListasParaExtraer)
 		#	abrimos la valvula y procesamos la materia prima
 		ListaEventosDeAperturaDeValvulas =  list(map(lambda parcela: parcela.pozo.abrirValvula(len(parcelasElegidas), plantasProcesdoras,tanques),parcelasElegidas))
+		list(map(lambda plantasProcesdora: plantasProcesdora.finDelDia(),plantasProcesdoras))
 		return ListaEventosDeAperturaDeValvulas

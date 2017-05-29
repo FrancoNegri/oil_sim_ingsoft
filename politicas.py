@@ -61,7 +61,14 @@ class PoliticaDeReinyeccionReinyectoEnPuntoCritico():
 	def __init__(self, presionCritica,dilucionCritica):
 		self.presionCritica = presionCritica
 		self.dilucionCritica = dilucionCritica
-	
+
+	def elegir(self,parcelasConPozo,dia):
+		listaParcelasElegidas = []
+		for parcela in parcelasConPozo:
+			if parcela.getPresion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica:
+				listaParcelasElegidas.append(parcela)
+		return listaParcelasElegidas
+
 	def elijoReinyectar(self, parcelasConPozo,dia):
 		for parcela in parcelasConPozo:
 			if parcela.getPresion() < self.presionCritica and parcela.dilucionDePetroleo() > self.dilucionCritica:
