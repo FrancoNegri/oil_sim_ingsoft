@@ -7,6 +7,8 @@ class Yacimiento:
 		self.proporcionAgua=float(proporcionAgua)
 		self.proporcionPetroleo=float(proporcionPetroleo)
 		self.volumenReinyectado = float(0)
+	def getProporcionDePetroleo(self):
+		return self.proporcionPetroleo
 	def extraerProducto(self,volumen):
 		self.volumenRestante-=volumen
 	def getVolumenRestante(self):

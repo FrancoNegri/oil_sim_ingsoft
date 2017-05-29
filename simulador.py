@@ -4,6 +4,7 @@ from subSimDeConstruccion import *
 from subSimDeReinyeccion import *
 from logger import Logger
 from evento import *
+from calculadorDeGanancia import *
 
 class Simulador:
 	def __init__(self,rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela,politicaEleccionRigs,politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDeTanques, constructorDePlantas,politicaDeFinalizacion,politicaDeReinyeccion):
@@ -28,12 +29,13 @@ class Simulador:
 		self.unSubSimDeConstruccion = SubSimDeConstruccion(politicaDeConstruccionDeTanques,politicaDeConstruccionDePlantas, constructorDePlantas, constructorDeTanques)
 		self.politicaDeFinalizacion = politicaDeFinalizacion
 		self.politicaDeReinyeccion = politicaDeReinyeccion
-		parcelas = []
+		self.eventos = []
+		self.calculador = CalculadorDeGanancia()
 
 	def start(self):
 		while not self.politicaDeFinalizacion.finalizo(self.dia):
 			self.pasarDeDia()
-		return "Ok"
+		return self.calculador.calcular(self.eventos)
 
 	def filtrarConPozo(self,parcela):
 		return parcela.listoParaExtraer()
@@ -43,9 +45,9 @@ class Simulador:
 
 	def pasarDeDia(self):
 		self.comenzarDia()
-		eventos = []
 		eventoComienzoDelDia = [Evento(0,"Comienzo del dia "+ str(self.dia))]
 		self.logger.logearEventos(eventoComienzoDelDia)
+		self.eventos += eventoComienzoDelDia
 		tanques =  self.unSubSimDeConstruccion.tanques()
 		plantasProcesadoras =  self.unSubSimDeConstruccion.plantasProcesadoras()
 		#me quedon con las parcelas que puedo extraer o reinyectar
@@ -53,14 +55,17 @@ class Simulador:
 		if self.politicaDeReinyeccion.elijoReinyectar(parcelasConPozo,self.dia):
 			eventosDeReinyeccion = self.unSubSimDeReinyeccion.simularReinyeccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
 			self.logger.logearEventos(eventosDeReinyeccion)
+			self.eventos += eventoComienzoDelDia
 		else:
 			eventosDeExtraccion = self.unSubSimDeExtraccion.simularExtraccion(self.dia, parcelasConPozo, plantasProcesadoras, tanques)
 			self.logger.logearEventos(eventosDeExtraccion)
+			self.eventos += eventosDeExtraccion
 		eventosDeExcavacion = self.unSubSimDeExcavacion.simularExcavacion(self.dia)
 		self.logger.logearEventos(eventosDeExcavacion)
 		eventosDeConstruccion = self.unSubSimDeConstruccion.simularConstruccion(self.dia)
 		self.logger.logearEventos(eventosDeConstruccion)
 		eventoFinDelDia = [Evento(0,"Fin del dia " + str(self.dia))]
 		self.logger.logearEventos(eventoFinDelDia)
+		self.eventos +=  eventosDeExcavacion + eventosDeConstruccion + eventoFinDelDia
 	def comenzarDia(self):
 		self.dia += 1
