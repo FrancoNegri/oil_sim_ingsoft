@@ -1,16 +1,25 @@
 #tanques y plantas
+class PlantaNula:
+	def __init__(self):
+		return
+	def esValida(self):
+		return False
+
 class PlantaProcesadora:
 	def __init__(self,capacidadMaxima):
 		self.capacidadMaxima=capacidadMaxima
 		self.capacidadUtilizadaDuranteElDia=0
+
+	def esValida(self):
+		return True
 	def procesar(self,volumen,tanques):
 		volumenPotencialDisponible = (self.capacidadMaxima-self.capacidadUtilizadaDuranteElDia)
-		
+
 		if volumenPotencialDisponible>volumen:
 			volumenPotencialProcesado = volumen
 		else:
 			volumenPotencialProcesado = volumenPotencialDisponible
-		
+
 		volumenTotalProcesado = 0
 		for tanque in tanques:
 			#en este caso ya procese todo el producto que tenia, listo
@@ -31,7 +40,9 @@ class Tanque:
 	def __init__(self,capacidadMaxima):
 		self.capacidadMaxima=capacidadMaxima
 		self.capacidadUtilizada=0
-		
+
+	def esValida(self):
+		return True
 	def almacenar(self,volumen):
 		volumenDisponible = (self.capacidadMaxima-self.capacidadUtilizada)
 		if volumenDisponible>volumen:
@@ -45,6 +56,6 @@ class Tanque:
 	def vender(self,volumen):
 		self.capacidadUtilizada -= volumen
 		#registrar evento
-		
+
 	#def estaLleno():
 	#	return self.capacidadMaxima==self.capacidadUtilizada

@@ -1,4 +1,5 @@
 from evento import Evento
+
 from plantas import *
 #Simulador de construccion
 class SubSimDeConstruccion():
@@ -71,7 +72,7 @@ class EstructuraEnConstruccion():
 			self.id=EstructuraEnConstruccion.contadorTanques
 			EstructuraEnConstruccion.contadorTanques+=1
 
-		self.estructura = None
+		self.estructura = ConstructorNulo()
 	def pasarDia(self):
 		self.diasConstruido += 1
 		return Evento(0,"Construccion Abanza un dia "+self.constructor.dameNombre() + " " +str(self.id) +" quedan "+str(self.constructor.getTiempoDeConstruccion()-self.diasConstruido)+" dias para que termine su construccion")
@@ -81,9 +82,15 @@ class EstructuraEnConstruccion():
 		return self.diasConstruido == self.constructor.getTiempoDeConstruccion()
 	def getEstructura(self):
 		if self.construccionFinalizada():
-			if self.estructura is None:
+			if not self.estructura.esValida():
 				self.estructura = self.constructor.construir()
 		return self.estructura
+
+class ConstructorNulo():
+	def __init__(self):
+		return
+	def esValida(self):
+		return False
 
 class ConstructorDePlantasProcesadoras():
 	def __init__(self, tiempoDeConstruccion, costo, capacidadMax):
@@ -91,6 +98,8 @@ class ConstructorDePlantasProcesadoras():
 		self.costo = costo
 		self.capacidadMax = capacidadMax
 		self.name='planta'
+	def esValida(self):
+		return True
 	def dameNombre(self):
 		return self.name
 	def construir(self):
@@ -106,6 +115,8 @@ class ConstructorDeTanques():
 		self.tiempoDeConstruccion = tiempoDeConstruccion
 		self.costo = costo
 		self.capacidadMax = capacidadMax
+	def esValida(self):
+		return True
 	def dameNombre(self):
 		return self.name
 	def construir(self):
