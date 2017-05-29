@@ -66,7 +66,7 @@ class ParcelaConcreta(ParcelaAbstracta):
 
 		presionDespuesDeReinyeccion = self.presionInicial *( self.yacimiento.getVolumenInicial() - self.yacimiento.getVolumenExtraido() + self.yacimiento.getVolumenReinyectado())/ self.yacimiento.getVolumenInicial()
 		self.yacimiento.reinyectar(volumenAgua,volumenGas)
-		return Evento(-100, "Reinyeccion Finalizada, Reinyectado Agua: " + str(volumenAgua) + " Gas" + str(volumenGas))
+		return Evento(-100, "Reinyeccion finalizada, Reinyectado Agua: " + str(volumenAgua) + " Gas" + str(volumenGas))
 
 	def profundidad(self):
 		return self.profundidadAlReservorio

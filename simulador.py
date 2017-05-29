@@ -41,7 +41,7 @@ class Simulador:
 
 	def pasarDeDia(self):
 		self.comenzarDia()
-		eventoComienzoDelDia = [Evento(0,"Comienzo del dia "+ str(self.dia))]
+		eventoComienzoDelDia = [Evento(0,"Comienzo del día "+ str(self.dia))]
 		self.logger.logearEventos(eventoComienzoDelDia)
 		self.eventos += eventoComienzoDelDia
 		tanques =  self.unSubSimDeConstruccion.tanques()
@@ -60,7 +60,7 @@ class Simulador:
 		self.logger.logearEventos(eventosDeExcavacion)
 		eventosDeConstruccion = self.unSubSimDeConstruccion.simularConstruccion(self.dia)
 		self.logger.logearEventos(eventosDeConstruccion)
-		eventoFinDelDia = [Evento(0,"Fin del dia " + str(self.dia))]
+		eventoFinDelDia = [Evento(0,"Fin del día " + str(self.dia))]
 		self.logger.logearEventos(eventoFinDelDia)
 		self.eventos +=  eventosDeExcavacion + eventosDeConstruccion + eventoFinDelDia
 	def comenzarDia(self):

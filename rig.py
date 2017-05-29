@@ -20,12 +20,12 @@ class Rig:
 
 	def asignarParcela(self,parcela):
 		self.parcela = parcela
-		return Evento(0,"se asigna la parcela "+str(parcela.dameId())+ " al rig " + str(self.dameId()) )
+		return Evento(0,"Se asigna la parcela "+str(parcela.dameId())+ " al rig " + str(self.dameId()) )
 
 	def excavarUnDia(self):
 		self.costo += self.costoDiario
 		self.parcela.perforar(self.poderDeExcavacion)
-		return Evento(self.costoDiario, "Se Excava la parcela...")
+		return Evento(self.costoDiario, "Se excava la parcela...")
 
 	def finalizado(self):
 		return self.parcela.listoParaExtraer()
