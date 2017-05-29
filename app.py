@@ -78,7 +78,23 @@ def log():
 		parcelas.append(parcela)
 
 	#Rigs
-	rigs = [Rig(10, 10,20,10),Rig(10,10,20,4)]
+	rigs_standard = data['data[rigs_standard]']
+	rigs_premium = data['data[rigs_premium]']
+	rigs_superpremium = data['data[rigs_superpremium]']
+	rigs = []
+
+	for i in range(1,int(rigs_standard)):
+		rig = Rig(10, 50, 2, 15)
+		rigs.append(rig)
+
+	for i in range(1,int(rigs_premium)):
+		rig = Rig(20, 70, 4, 25)
+		rigs.append(rig)
+
+	for i in range(1,int(rigs_superpremium)):
+		rig = Rig(40, 90, 4, 35)
+		rigs.append(rig)
+
 
 	sim = Simulador(rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicaEleccionRigs,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas, constructorDeTanques, constructorDePlantas, politicaDeFinalizacion, politicaDeReinyeccion)
 	return sim.start()

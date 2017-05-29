@@ -261,6 +261,10 @@
             <button class="btn btn-block btn-large btn-success" id="simular">Simular</button>
             </form>
 
+            <div class="alert alert-success terminado" style="display:none">
+            El log ha sigo generado y puede consultarse en log.txt
+            </div>
+
         </div>
         
         <script src="//code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
@@ -300,8 +304,18 @@ jQuery.fn.serializeJSON=function() {
             $(document).ready(function(){
                 $("form#form").on('submit', function(e){
                     e.preventDefault();
+                    if($('input[name="cant_parcelas"]').val() == 0){
+                      alert('Hay que agregar una parcela al menos!');
+                      return false;
+                    }
                     $('form#form .parcela_ejemplo').remove();
-                    $.post('log', {data: $('form#form').serializeJSON() });
+                    $.post('log', {
+                        data: $('form#form').serializeJSON(),
+                        success: function(){
+                          $('form#form').hide();
+                          $('.terminado').show();
+                        }
+                      });
                 })
                 $('.add_parcela').on('click', function(e){
                     e.preventDefault();
