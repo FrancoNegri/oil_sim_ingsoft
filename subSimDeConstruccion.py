@@ -7,9 +7,9 @@ class SubSimDeConstruccion():
 		self.administradorDePlantas = administradorDeEstructuras(politicaDeConstruccionDePlantas,constructorDePlantas)
 
 	def simularConstruccion(self,dia):
-		self.administradorDeTanques.simularConstruccion(dia)
-		self.administradorDePlantas.simularConstruccion(dia)
-		return []
+		eventosConstruccionTanques = self.administradorDeTanques.simularConstruccion(dia)
+		eventosConstruccionPlantas = self.administradorDePlantas.simularConstruccion(dia)
+		return eventosConstruccionTanques+eventosConstruccionPlantas
 
 	def tanques(self):
 		return self.administradorDeTanques.estructurasParaUtilizar()
@@ -28,10 +28,11 @@ class administradorDeEstructuras():
 	def simularConstruccion(self,dia):
 		nuevasEstructurasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeEstructuras, self.constructorDeEstrcturas)
 		self.listaEstructurasConstruyendose = self.listaEstructurasConstruyendose + nuevasEstructurasAConstruir
-		self.pasarDia(self.listaEstructurasConstruyendose)
+		eventosNuevos = list(map(lambda ne : Evento(0,"agrego nueva estructura a construir " + ne.dameNombre()),nuevasEstructurasAConstruir))
+		eventosPasarDia = self.pasarDia(self.listaEstructurasConstruyendose)
 		self.listaDeEstructurasListas = self.listaDeEstructurasListas + self.estructurasFinalizadas(self.listaEstructurasConstruyendose)
 		self.listaEstructurasConstruyendose = self.estructurasNoFinalizadas(self.listaEstructurasConstruyendose)
-		return []
+		return eventosNuevos+eventosPasarDia
 
 	def pasarDia(self,listaEstructuras):
 		eventos = []
@@ -57,13 +58,25 @@ class administradorDeEstructuras():
 		return list(map(lambda estructura: estructura.getEstructura(),self.listaDeEstructurasListas))
 
 class EstructuraEnConstruccion():
+	contadorTanques=0
+	contadorPlantas=0
+
 	def __init__(self,constructor):
 		self.diasConstruido = 0
 		self.constructor = constructor
+		if constructor.dameNombre()=='planta':
+			self.id=EstructuraEnConstruccion.contadorPlantas
+			EstructuraEnConstruccion.contadorPlantas+=1
+		else:
+			self.id=EstructuraEnConstruccion.contadorTanques
+			EstructuraEnConstruccion.contadorTanques+=1
+
 		self.estructura = None
 	def pasarDia(self):
 		self.diasConstruido += 1
-		return Evento(0,"Construccion Abanza un dia")
+		return Evento(0,"Construccion Abanza un dia "+self.constructor.dameNombre() + " " +str(self.id) +" quedan "+str(self.constructor.getTiempoDeConstruccion()-self.diasConstruido)+" dias para que termine su construccion")
+	def dameNombre(self):
+		return self.constructor.dameNombre()
 	def construccionFinalizada(self):
 		return self.diasConstruido == self.constructor.getTiempoDeConstruccion()
 	def getEstructura(self):
@@ -77,6 +90,9 @@ class ConstructorDePlantasProcesadoras():
 		self.tiempoDeConstruccion = tiempoDeConstruccion
 		self.costo = costo
 		self.capacidadMax = capacidadMax
+		self.name='planta'
+	def dameNombre(self):
+		return self.name
 	def construir(self):
 		return PlantaProcesadora(self.capacidadMax)
 	def getCosto(self):
@@ -86,9 +102,12 @@ class ConstructorDePlantasProcesadoras():
 
 class ConstructorDeTanques():
 	def __init__(self, tiempoDeConstruccion, costo, capacidadMax):
+		self.name='tanque'
 		self.tiempoDeConstruccion = tiempoDeConstruccion
 		self.costo = costo
 		self.capacidadMax = capacidadMax
+	def dameNombre(self):
+		return self.name
 	def construir(self):
 		return Tanque(self.capacidadMax)
 	def getCosto(self):
