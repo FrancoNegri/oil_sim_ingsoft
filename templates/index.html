@@ -261,8 +261,12 @@
             <button class="btn btn-block btn-large btn-success" id="simular">Simular</button>
             </form>
 
+            <div class="alert alert-warning cargando" style="display:none">
+            Cargando...
+            </div>
+
             <div class="alert alert-success terminado" style="display:none">
-            El log ha sigo generado y puede consultarse en log.txt
+            El log ha sigo generado y puede consultarse en log.txt. El resultado de ganancia/perdida es <b></b>
             </div>
 
         </div>
@@ -304,6 +308,8 @@ jQuery.fn.serializeJSON=function() {
             $(document).ready(function(){
                 $("form#form").on('submit', function(e){
                     e.preventDefault();
+                    $('form#form').hide();
+                    $('.cargando').show();
                     if($('input[name="cant_parcelas"]').val() == 0){
                       alert('Hay que agregar una parcela al menos!');
                       return false;
@@ -311,8 +317,9 @@ jQuery.fn.serializeJSON=function() {
                     $('form#form .parcela_ejemplo').remove();
                     $.post('log', {
                         data: $('form#form').serializeJSON(),
-                        success: function(){
-                          $('form#form').hide();
+                        success: function(response){
+                          $('.cargando').hide();
+                          $('terminado b').html(response);
                           $('.terminado').show();
                         }
                       });

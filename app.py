@@ -97,7 +97,7 @@ def log():
 
 
 	sim = Simulador(rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicaEleccionRigs,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas, constructorDeTanques, constructorDePlantas, politicaDeFinalizacion, politicaDeReinyeccion)
-	return sim.start()
+	return str(sim.start())
 
 if __name__ == "__main__":
 	app.run(debug=True)
