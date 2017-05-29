@@ -99,5 +99,12 @@ def log():
 	sim = Simulador(rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicaEleccionRigs,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas, constructorDeTanques, constructorDePlantas, politicaDeFinalizacion, politicaDeReinyeccion)
 	return str(sim.start())
 
+
+@app.route('/logtxt', methods=['GET'])
+def logtxt():
+	f = open('log.txt','r') # From wherever they upload it to.
+	read = f.read()
+	return read
+
 if __name__ == "__main__":
 	app.run(debug=True)
