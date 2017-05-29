@@ -319,7 +319,7 @@ jQuery.fn.serializeJSON=function() {
                         data: $('form#form').serializeJSON(),
                         success: function(response){
                           $('.cargando').hide();
-                          $('terminado b').html(response);
+                          $('.terminado b').html(response);
                           $('.terminado').show();
                         }
                       });
