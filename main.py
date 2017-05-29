@@ -14,7 +14,7 @@ def main():
 	politicaDeConsutrccionTanques = politicaDeConstruccionDeEstructurasAlPrincipio(3)
 	politicaDeConsutrccionPlantas = politicaDeConstruccionDeEstructurasAlPrincipio(3)
 	yacimiento = Yacimiento(10000,20,30,50)
-	parcelas = [ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10),ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10),ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10),ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10)]
+	parcelas = [ParcelaConcreta(yacimiento,10, TerrenoArcilloso(),10)]
 	rigs = [Rig(10, 10,20,10),Rig(10,10,20,4)]
 	constructorDePlantas = ConstructorDePlantasProcesadoras(10,10,200)
 	constructorDeTanques = ConstructorDeTanques(10,20,100)

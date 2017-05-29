@@ -14,8 +14,9 @@ class PoliticaEleccionRigRandom(PoliticaDeEleccionAbstracta):
 #Politica de donde hacer pozos
 class politicaDeSeleccionMenorProfundidad:
 	def __init__(self, cantidadDePozos):
-		self.cantidadDePozos = cantidadDePozos
+		self.cantidadDePozos = int(cantidadDePozos)
 	def elegir(self, parcelas):
+		print self.cantidadDePozos
 		parcelas_elegidas = sorted(parcelas, key=lambda parcela: parcela.profundidad())
 		return parcelas_elegidas[:self.cantidadDePozos]
 

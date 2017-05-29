@@ -72,3 +72,6 @@ class ParcelaConcreta(ParcelaAbstracta):
 
 	def getPresion(self):
 		return self.presion
+
+	def dilucionDePetroleo(self):
+		return 10

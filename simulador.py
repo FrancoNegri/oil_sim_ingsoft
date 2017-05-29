@@ -31,8 +31,9 @@ class Simulador:
 		parcelas = []
 
 	def start(self):
-	  while not self.politicaDeFinalizacion.finalizo(self.dia):
-		  self.pasarDeDia()
+		while not self.politicaDeFinalizacion.finalizo(self.dia):
+			self.pasarDeDia()
+		return "Ok"
 
 	def filtrarConPozo(self,parcela):
 		return parcela.listoParaExtraer()
