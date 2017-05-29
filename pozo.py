@@ -37,7 +37,8 @@ class PozoFinalizado(PozoAbstracto):
 				break
 			else:
 				#le pido a la planta que procese todo el volumen posible, me devuelve cuanto pudo procesar posta
-				volumenProcesado = plantaProc.procesar(volumenPotencial - volumenTotalProcesado,tanques)
-				volumenTotalProcesado += volumenProcesado
-		self.parcela.extraerProducto(volumenTotalProcesado,cantidadDePozosHabilitados)
+				volumenDisponible = plantaProc.volumenDisponible(tanques)
+				self.parcela.extraerProducto(volumenDisponible,cantidadDePozosHabilitados)
+				plantaProc.procesar(volumenDisponible,tanques)
+				volumenTotalProcesado += volumenDisponible
 		return Evento(0, "Al abrir la valvula del pozo se extrajo: " + str(volumenTotalProcesado))

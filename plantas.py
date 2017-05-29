@@ -1,4 +1,5 @@
 #tanques y plantas
+from evento import *
 class PlantaNula:
 	def __init__(self):
 		return
@@ -13,25 +14,31 @@ class PlantaProcesadora:
 	def esValida(self):
 		return True
 	def procesar(self,volumen,tanques):
-		volumenPotencialDisponible = (self.capacidadMaxima-self.capacidadUtilizadaDuranteElDia)
-
-		if volumenPotencialDisponible>volumen:
-			volumenPotencialProcesado = volumen
+		if volumen <= self.volumenDisponible(tanques): 
+			self.capacidadUtilizadaDuranteElDia += volumen
+			for tanque in tanques:
+				volumenTanque = tanque.volumenDisponible()
+				if volumenTanque > volumen:
+					tanque.almacenar(volumenTanque)
+					volumen = 0
+				else:
+					tanque.almacenar(volumenTanque)
+					volumen -= volumenTanque
 		else:
-			volumenPotencialProcesado = volumenPotencialDisponible
+			raise Exception('Capacidad procesable excedida')
+		return Evento(0,"Se procesaron: " + str(volumen) + "en planta procesadora")
 
-		volumenTotalProcesado = 0
+
+	def volumenDisponible(self, tanques):
+		volumenPotencialUtilizable = (self.capacidadMaxima-self.capacidadUtilizadaDuranteElDia)
+		volumenDisponibleEnTanques = 0
 		for tanque in tanques:
-			#en este caso ya procese todo el producto que tenia, listo
-			if volumenTotalProcesado == volumenPotencialProcesado:
-				break
-			else:
-				#le pido a la planta que procese todo el volumen posible, me devuelve cuanto pudo procesar posta
-				volumenProcesado = tanque.almacenar(volumenPotencialProcesado - volumenTotalProcesado)
-				volumenTotalProcesado += volumenProcesado
-
-		self.capacidadUtilizadaDuranteElDia +=volumenTotalProcesado
-		return volumenTotalProcesado
+			volumenDisponibleEnTanques += tanque.volumenDisponible()
+		if volumenDisponibleEnTanques > volumenPotencialUtilizable:
+			volumenDisponible = volumenPotencialUtilizable
+		else:
+			volumenDisponible = volumenDisponibleEnTanques
+		return volumenDisponible
 
 	def finDelDia(self):
 		self.capacidadUtilizadaDuranteElDia = 0
@@ -40,18 +47,18 @@ class Tanque:
 	def __init__(self,capacidadMaxima):
 		self.capacidadMaxima=capacidadMaxima
 		self.capacidadUtilizada=0
-
 	def esValida(self):
 		return True
 	def almacenar(self,volumen):
-		volumenDisponible = (self.capacidadMaxima-self.capacidadUtilizada)
-		if volumenDisponible>volumen:
-			almacenado = volumen
+		volumenDisponible = self.volumenDisponible()
+		if volumenDisponible >= volumen:
+			self.capacidadUtilizada +=volumen
 		else:
-			almacenado = volumenDisponible
-		self.capacidadUtilizada +=almacenado
-		# registrar evento
-		return almacenado
+			raise Exception('Capacidad almacenable excedida')
+
+	def volumenDisponible(self):
+		volumenDisponible = (self.capacidadMaxima-self.capacidadUtilizada)
+		return volumenDisponible
 
 	def vender(self,volumen):
 		self.capacidadUtilizada -= volumen
