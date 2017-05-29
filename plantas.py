@@ -17,6 +17,8 @@ class PlantaProcesadora:
 		if volumen <= self.volumenDisponible(tanques): 
 			self.capacidadUtilizadaDuranteElDia += volumen
 			for tanque in tanques:
+				if volumen <= 0:
+					break
 				volumenTanque = tanque.volumenDisponible()
 				if volumenTanque > volumen:
 					tanque.almacenar(volumenTanque)
