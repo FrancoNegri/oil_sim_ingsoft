@@ -29,7 +29,7 @@ class administradorDeEstructuras():
 	def simularConstruccion(self,dia):
 		nuevasEstructurasAConstruir = self.empezarConstruccionDeEstructuras(dia,self.politicaDeConstruccionDeEstructuras, self.constructorDeEstrcturas)
 		self.listaEstructurasConstruyendose = self.listaEstructurasConstruyendose + nuevasEstructurasAConstruir
-		eventosNuevos = list(map(lambda ne : Evento(0,"agrego nueva estructura a construir " + ne.dameNombre()),nuevasEstructurasAConstruir))
+		eventosNuevos = list(map(lambda ne : Evento(0,"Agrego nueva estructura a construir " + ne.dameNombre()),nuevasEstructurasAConstruir))
 		eventosPasarDia = self.pasarDia(self.listaEstructurasConstruyendose)
 		self.listaDeEstructurasListas = self.listaDeEstructurasListas + self.estructurasFinalizadas(self.listaEstructurasConstruyendose)
 		self.listaEstructurasConstruyendose = self.estructurasNoFinalizadas(self.listaEstructurasConstruyendose)
@@ -75,7 +75,7 @@ class EstructuraEnConstruccion():
 		self.estructura = ConstructorNulo()
 	def pasarDia(self):
 		self.diasConstruido += 1
-		return Evento(0,"Construccion Abanza un dia "+self.constructor.dameNombre() + " " +str(self.id) +" quedan "+str(self.constructor.getTiempoDeConstruccion()-self.diasConstruido)+" dias para que termine su construccion")
+		return Evento(0,"Construccion Avanza un dia "+self.constructor.dameNombre() + " " +str(self.id) +" quedan "+str(self.constructor.getTiempoDeConstruccion()-self.diasConstruido)+" dias para que termine su construccion")
 	def dameNombre(self):
 		return self.constructor.dameNombre()
 	def construccionFinalizada(self):

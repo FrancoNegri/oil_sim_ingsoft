@@ -21,22 +21,22 @@ def log():
 	pr_gas = data['data[pr_gas]']
 	pr_agua = data['data[pr_agua]']
 	pr_petroleo = data['data[pr_petroleo]']
-	yacimiento = Yacimiento(volumen_inicial,pr_gas,pr_agua,pr_petroleo)
+	yacimiento = Yacimiento(float(volumen_inicial),float(pr_gas),float(pr_agua),float(pr_petroleo))
 
 	#Constructor de Plantas
 	plantas_tiempoDeConstruccion = data['data[plantas_duracion]']
 	plantas_costo = data['data[plantas_precio]']
 	plantas_capacidadMax = data['data[plantas_capacidad]']
-	constructorDePlantas = ConstructorDePlantasProcesadoras(plantas_tiempoDeConstruccion, plantas_costo, plantas_capacidadMax)
+	constructorDePlantas = ConstructorDePlantasProcesadoras(int(plantas_tiempoDeConstruccion), float(plantas_costo), float(plantas_capacidadMax))
 	#Constructor de Tanques
 	tanques_tiempoDeConstruccion = data['data[tanques_duracion]']
 	tanques_costo = data['data[tanques_precio]']
 	tanques_capacidadMax = data['data[tanques_capacidad]']
-	constructorDeTanques = ConstructorDeTanques(tanques_tiempoDeConstruccion, tanques_costo, tanques_capacidadMax)
+	constructorDeTanques = ConstructorDeTanques(int(tanques_tiempoDeConstruccion), float(tanques_costo), float(tanques_capacidadMax))
 
 	#Politicas
 	if data['data[pol_final]'] == 'Contrato':
-		politicaDeFinalizacion = politicaDeFinalizacionVencimientoDeContrato(100)
+		politicaDeFinalizacion = politicaDeFinalizacionVencimientoDeContrato(int(data['data[duracion_contrato]']))
 
 	if data['data[pol_reinyectar]'] == 'PuntoCritico':
 		politicaDeReinyeccion = PoliticaDeReinyeccionReinyectoEnPuntoCritico(10,20)
@@ -74,7 +74,7 @@ def log():
 		presion = data['data[presion][' + str(i) + ']'] 
 		profundidad = data['data[profundidad][' + str(i) + ']'] 
 
-		parcela = ParcelaConcreta(yacimiento,presion,terreno,profundidad)
+		parcela = ParcelaConcreta(yacimiento,float(presion),terreno,float(profundidad))
 		parcelas.append(parcela)
 
 	#Rigs
@@ -97,7 +97,14 @@ def log():
 
 
 	sim = Simulador(rigs,parcelas,politicaDeEleccionDePozos,politicaCuandoPerforar,politicaCualYCantidaddePozosParcela, politicaEleccionRigs,politicaDeConsutrccionTanques,politicaDeConsutrccionPlantas, constructorDeTanques, constructorDePlantas, politicaDeFinalizacion, politicaDeReinyeccion)
-	return sim.start()
+	return str(sim.start())
+
+
+@app.route('/logtxt', methods=['GET'])
+def logtxt():
+	f = open('log.txt','r') # From wherever they upload it to.
+	read = f.read()
+	return read
 
 if __name__ == "__main__":
 	app.run(debug=True)

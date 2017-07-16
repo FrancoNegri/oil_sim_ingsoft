@@ -122,6 +122,13 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="">Días duración del Contrato</label>
+                  <div class="col-md-4">
+                  <input id="duracion_contrato" name="duracion_contrato" type="text" placeholder="" class="form-control input-md" required>
+                  </div>
+                </div>
+
                 </fieldset>
 
                 <fieldset>
@@ -261,8 +268,14 @@
             <button class="btn btn-block btn-large btn-success" id="simular">Simular</button>
             </form>
 
+            <div class="alert alert-warning cargando" style="display:none">
+            Cargando...
+            </div>
+
             <div class="alert alert-success terminado" style="display:none">
-            El log ha sigo generado y puede consultarse en log.txt
+            El log ha sigo generado:
+            <blockquote id="log">
+            </blockquote>
             </div>
 
         </div>
@@ -301,21 +314,37 @@ jQuery.fn.serializeJSON=function() {
   });
   return json;
 };
+
+function nl2br (str, is_xhtml) {   
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+
             $(document).ready(function(){
                 $("form#form").on('submit', function(e){
                     e.preventDefault();
+                    $('form#form').hide();
+                    $('.cargando').show();
                     if($('input[name="cant_parcelas"]').val() == 0){
                       alert('Hay que agregar una parcela al menos!');
                       return false;
                     }
                     $('form#form .parcela_ejemplo').remove();
-                    $.post('log', {
-                        data: $('form#form').serializeJSON(),
-                        success: function(){
-                          $('form#form').hide();
-                          $('.terminado').show();
-                        }
-                      });
+                    setTimeout(function(){
+
+                      $.post('log', {
+                          data: $('form#form').serializeJSON(),
+                          success: function(response){
+                            $('.cargando').hide();
+                            $('.terminado b').html(response);
+                            $.get("logtxt", function(response){
+                              $('.terminado').show();
+                              $('.terminado blockquote').html(nl2br(response));
+                            });
+                          }
+                        });
+                    }
+                    , 1000);
                 })
                 $('.add_parcela').on('click', function(e){
                     e.preventDefault();

@@ -35,11 +35,19 @@ class PozoFinalizado(PozoAbstracto):
 		volumenTotalProcesado = 0
 		for plantaProc in plantasProcesadoras:
 			#en este caso ya procese todo el producto que tenia, listo
-			if volumenTotalProcesado == volumenPotencial:
+			if volumenTotalProcesado >= volumenPotencial:
 				break
 			else:
 				#le pido a la planta que procese todo el volumen posible, me devuelve cuanto pudo procesar posta
-				volumenProcesado = plantaProc.procesar(volumenPotencial - volumenTotalProcesado,tanques)
-				volumenTotalProcesado += volumenProcesado
-		self.parcela.extraerProducto(volumenTotalProcesado,cantidadDePozosHabilitados)
+				volumenDisponible = plantaProc.volumenDisponible(tanques)
+				if volumenDisponible > volumenPotencial - volumenTotalProcesado:
+					volmenAProcesar =  volumenPotencial - volumenTotalProcesado
+				else:
+					volmenAProcesar = volumenDisponible
+				self.parcela.extraerProducto(volmenAProcesar,cantidadDePozosHabilitados)
+				plantaProc.procesar(volmenAProcesar,tanques)
+				volumenTotalProcesado += volmenAProcesar
 		return Evento(0, "Al abrir la valvula del pozo se extrajo: " + str(volumenTotalProcesado))
+
+	def reinyectar(self,volumenAgua,volumenGas):
+		return self.parcela.reinyectar(volumenAgua,volumenGas)
